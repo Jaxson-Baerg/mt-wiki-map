@@ -16,3 +16,12 @@ body {
     rgba(163, 208, 219, 1) 100%
   );
 }
+
+
+/* Set the size of the div element that contains the map */
+#map {
+  height: 1000px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
+}
