@@ -7,6 +7,7 @@ const router  = express.Router();
 const login = (email, password) => {
   return database.getUserWithEmail(email)
     .then(user => {
+      if (!user) return null;
       if (bcrypt.compareSync(password, user.password)) {
         return user;
       }
@@ -20,7 +21,7 @@ router.post('/', (req, res) => {
   login(email, password)
     .then(user => {
       if (!user) {
-        res.send({error: "error, incorrect password"});
+        res.send({error: "error, incorrect email or password"});
         return;
       }
       console.log(user);
