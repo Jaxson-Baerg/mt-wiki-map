@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 // Web server config
-const sassMiddleware = require('./lib/sass-middleware');
+const sassMiddleware = require('../lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
 
@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(
-  '/styles',
+  '../styles',
   sassMiddleware({
     source: __dirname + '/styles',
     destination: __dirname + '/public/styles',
@@ -28,16 +28,18 @@ app.use(express.static('public'));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const userApiRoutes = require('./routes/users-api');
-const widgetApiRoutes = require('./routes/widgets-api');
+const loginRoutes = require('./routes/login');
+const registerRoutes = require('./routes/register');
 const usersRoutes = require('./routes/users');
+const markersRoutes = require('./routes/markers');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use('/api/users', userApiRoutes);
-app.use('/api/widgets', widgetApiRoutes);
+app.use('/login', loginRoutes);
+app.use('/register', registerRoutes);
 app.use('/users', usersRoutes);
+app.use('/markers', markersRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
