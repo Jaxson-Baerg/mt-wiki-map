@@ -1,12 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const database = require('../db/connection');
+const usersQueries = require('../db/queries/usersQueries');
 const router  = express.Router();
 
 router.post('/', (req, res) => {
   const user = req.body;
   user.password = bcrypt.hashSync(user.password, 12);
-  database.addUser(user)
+  usersQueries.addUser(user)
     .then(user => {
       if (!user) {
         res.send({error: "error, user register error"});
