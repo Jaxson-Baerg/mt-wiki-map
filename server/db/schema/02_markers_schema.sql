@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS markers CASCADE;
 
 CREATE TABLE markers (
     id SERIAL PRIMARY KEY NOT NULL,
-    longitude FLOAT NOT NULL,
     latitude FLOAT NOT NULL,
+    longitude FLOAT NOT NULL,
     thumbnail_photo_url VARCHAR(500),
     rating SMALLINT NOT NULL,
     title VARCHAR(255) NOT NULL,
