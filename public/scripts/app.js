@@ -2,13 +2,13 @@
 
 // Initialize and add the map
 const initMap = () => {
-  // The location of Uluru
-  const Canada = { lat: 56.1304, lng: -106.3468 }
+  // Locations of Canada and Vancouver
+  const canada = { lat: 56.1304, lng: -106.3468 }
   const vancouver = { lat: 49.2827, lng: -123.1207 };
 
   const mapOptions = {
     zoom: 4,
-    center: Canada
+    center: canada
   }
 
   // The map, centered at Canada
@@ -16,6 +16,7 @@ const initMap = () => {
 
   // markers is an array of Marker objects to be placed on the map
   const loadMarkers = markers => {
+    const markerArr = [];
     markers.forEach(marker => {
       const newMarker = new google.maps.Marker({
         position: { lat: marker.latitude, lng: marker.longitude },
@@ -24,7 +25,7 @@ const initMap = () => {
         title: marker.title
       })
 
-      // Add info windows to each marker containi
+      // Add info window to each marker
       google.maps.event.addListener(newMarker, "click", () => {
         let infowindow = new google.maps.InfoWindow();
         infowindow.setContent(`
@@ -32,15 +33,23 @@ const initMap = () => {
         <div class="content">
           <p>${marker.description}</p>
           <p>Rating: ${marker.rating}/5</p>
-          <img src="">
+          <img src=${marker.thumbnail_photo_url}>
         </div>
         `);
         infowindow.open(map, newMarker);
      });
+
+     markerArr.push(marker);
+    });
+
+    // Cluster markers using marker clusterer
+    new markerClusterer.MarkerClusterer({
+      map,
+      markerArr
     });
   }
 
-  // The marker, positioned at Uluru
+  // The marker, positioned at Vancouver
   const marker1 = new google.maps.Marker({
     position: vancouver,
     map: map,
