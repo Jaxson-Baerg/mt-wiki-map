@@ -3,10 +3,9 @@ const markersQueries = require('../db/queries/markersQueries');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  const category = req.body;
+  const category = req.query.category;
   markersQueries.getMarkersByCategory(category)
     .then(markers => {
-      console.log(markers);
       res.send(markers);
     })
     .catch(err => res.send(err));
