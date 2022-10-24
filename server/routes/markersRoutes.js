@@ -2,17 +2,33 @@ const express = require('express');
 const markersQueries = require('../db/queries/markersQueries');
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  const category = req.body;
+  markersQueries.getMarkersByCategory(category)
+    .then(markers => {
+      console.log(markers);
+      res.send(markers);
+    })
+    .catch(err => res.send(err));
+});
+
 router.post('/', (req, res) => {
   const marker = req.body;
-  console.log(marker);
-   markersQueries.addMarker(marker)
+  geoCode.addressToLatLng(marker.address)
+    .then((latLng) => {
+      marker.latitude = latLng.lat;
+      marker.longitude = latLng.lng;
+    })
+    .catch(err => {console.log(err)});
+
+  markersQueries.addMarker(marker)
     .then(marker => {
       if (!marker) {
         res.send({error: "error, marker creation error"});
         return;
       }
       console.log(marker);
-      res.send({marker: {marker_id: marker.id}});
+      res.send(marker);
     })
     .catch(err => res.send(err));
 });
