@@ -12,9 +12,6 @@
     <label>Title</label>
       <input name="title" type="text" />
       <br>
-      <label>Description</label>
-      <input name="description" type="text" />
-      <br>
       <label>Catergory</label>
       <select name="category">
       <option value="all">All</option>
@@ -25,7 +22,7 @@
     </select>
       <br>
       <label>Rating</label>
-      <input name="rating" type="number" />
+      <input name="rating" type="number" min="0" max="10"  />
       <br>
       <label>Photo</label>
       <input name="thumbnail_photo_url" type="image" />
@@ -34,9 +31,12 @@
       <input name="address" type="text" required />
       <br>
       <label>Public</label>
-      <input name="public" type="radio" value="true" />
+      <input name="display" type="radio" value="true" />
       <label>Private</label>
-      <input name="Private" type="radio" value="false" />
+      <input name="display" type="radio" value="false" />
+      <br>
+      <label>Description</label>
+      <textarea></textarea>
       <br>
       <button type="submit">Submit</button>
   </form>
