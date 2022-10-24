@@ -1,11 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const database = require('../db/connection');
+const usersQueries = require('../db/queries/usersQueries');
 const router  = express.Router();
 
 // login password validation using bcrypt
 const login = (email, password) => {
-  return database.getUserWithEmail(email)
+  return usersQueries.getUserWithEmail(email)
     .then(user => {
       if (!user) return null;
       if (bcrypt.compareSync(password, user.password)) {

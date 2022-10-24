@@ -12,9 +12,6 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-// Load the logger first so all (static) HTTP requests are logged to STDOUT
-// 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -33,24 +30,16 @@ app.use(cookieSession({
 }));
 
 // Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-const loginRoutes = require('./routes/login');
-const registerRoutes = require('./routes/register');
-const usersRoutes = require('./routes/users');
-const markersRoutes = require('./routes/markers');
+const loginRoutes = require('./routes/loginRoutes');
+const registerRoutes = require('./routes/registerRoutes');
+const usersRoutes = require('./routes/usersRoutes');
+const markersRoutes = require('./routes/markersRoutes');
 
 // Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-// Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
 app.use('/users', usersRoutes);
 app.use('/markers', markersRoutes);
-// Note: mount other resources here, using the same pattern above
-
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
 
 // Change ejs delimiters to bypass vscode linting
 const ejs = require('ejs');
