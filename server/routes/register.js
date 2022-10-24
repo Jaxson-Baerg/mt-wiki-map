@@ -32,5 +32,5 @@ router.post('/', (req, res) => {
 module.exports = router;
 //app.post("/logout", (req, res) => {
 //   req.session = null;
-//   return res.redirect("/urls");
+//   return res.redirect("../");
 // });
