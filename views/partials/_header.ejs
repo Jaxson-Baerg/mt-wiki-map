@@ -1,21 +1,32 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark bg-success">
-    <a class="navbar-brand">Wiki Map</a>
+  <nav class="navbar">
+    <a class="navbar-brand"> Wiki Map</a>
 
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="/maps">Maps</a>
-      <a class="nav-item nav-link" href="/maps/new">Create Maps</a>
-      <a class="nav-item nav-link" href="/user/profile">Profile</a>
+      <a class="nav-item nav-link" href="/">Map</a>
+      <a class="nav-item nav-link" href="/users/create">Create Marker</a>
+      <a class="nav-item nav-link" href="/users/profile">Profile</a>
+
+      <label for="category">Sort By:</label>
+  <select name="category">
+      <option value="all">All</option>
+    <option value="food">Food</option>
+    <option value="activity">Activity</option>
+    <option value="accomodation">Accomodation</option>
+    <option value="shopping">Shopping</option>
+  </select>
     </div>
 
       <form method="POST" action="/logout">
         <button type="submit">logout</button>
       </form>
+
         <form method="GET" action="/register">
           <button type="submit">Register</button>
         </form>
         <form method="GET" action="/login">
           <button type="submit">Login</button>
         </form>
+
   </nav>
 </header>
