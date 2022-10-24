@@ -4,6 +4,7 @@ CREATE TABLE markers (
     id SERIAL PRIMARY KEY NOT NULL,
     latitude FLOAT NOT NULL,
     longitude FLOAT NOT NULL,
+    address VARCHAR(500),
     thumbnail_photo_url VARCHAR(500),
     rating SMALLINT NOT NULL,
     title VARCHAR(255) NOT NULL,
