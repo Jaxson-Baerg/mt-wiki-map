@@ -1,3 +1,4 @@
+// Geocoding given an address
 const addressToLatLng = (address) => {
   fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`)
   .then((response) => {
@@ -10,6 +11,7 @@ const addressToLatLng = (address) => {
   });
 }
 
+// Reverse geocoding given coordinates
 const latLngToAddress = (latLng) => {
   fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng}&key=${apiKey}`)
   .then((response) => {
