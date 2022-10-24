@@ -1,5 +1,8 @@
 // Client facing scripts here
 
+// Array of markers that will be loaded on map
+const markerArr = [];
+
 // Initialize and add the map
 const initMap = () => {
   // Locations of Canada and Vancouver
@@ -16,7 +19,11 @@ const initMap = () => {
 
   // markers is an array of Marker objects to be placed on the map
   const loadMarkers = markers => {
-    const markerArr = [];
+    // Clear all pre-existing markers from map
+    markerArr.forEach(marker => marker.setMap(null))
+    markerArr.length = 0;
+
+    // Place each marker at given coords with an animation and title
     markers.forEach(marker => {
       const newMarker = new google.maps.Marker({
         position: { lat: marker.latitude, lng: marker.longitude },
