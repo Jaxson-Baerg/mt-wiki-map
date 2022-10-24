@@ -6,11 +6,13 @@
  */
 
 const express = require('express');
+const { Pool } = require('pg');
+const { route } = require('./login');
 const router  = express.Router();
 
 // Filter by users created markers
-router.get('/', (req, res) => {
-  res.render('users');
+router.get('/create', (req, res) => {
+  res.render('createMarkers');
 });
 
 module.exports = router;

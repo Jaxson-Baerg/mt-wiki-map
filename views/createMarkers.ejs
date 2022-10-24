@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Markers</title>
+</head>
+<body>
+  [?- include('partials/_header'); ?]
+  <form action="/markers" method="POST">
+    <label>Title</label>
+      <input name="title" type="text" />
+      <br>
+      <label>Description</label>
+      <input name="description" type="text" />
+      <br>
+      <label>Catergory</label>
+      <select name="category">
+      <option value="all">All</option>
+      <option value="food">Food</option>
+      <option value="activity">Activity</option>
+      <option value="accomodation">Accomodation</option>
+      <option value="shopping">Shopping</option>
+    </select>
+      <br>
+      <label>Rating</label>
+      <input name="rating" type="number" />
+      <br>
+      <label>Photo</label>
+      <input name="thumbnail_photo_url" type="image" />
+      <br>
+      <label>Address</label>
+      <input name="address" type="text" required />
+      <br>
+      <label>Public</label>
+      <input name="public" type="radio" value="true" />
+      <label>Private</label>
+      <input name="Private" type="radio" value="false" />
+      <br>
+      <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>
