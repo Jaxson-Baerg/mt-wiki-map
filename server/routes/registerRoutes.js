@@ -6,7 +6,10 @@ const router  = express.Router();
 
 // GET for register
 router.get('/', (req, res) => {
-  return res.render('register');
+  const templateVar = {
+    user: req.session["userId"]
+  }
+  return res.render('register',templateVar);
 });
 
 // POST for register
@@ -21,7 +24,7 @@ router.post('/', (req, res) => {
       }
 
       console.log(user);
-      req.session.userId = user.id;
+      req.session["userId"] = user.id;
       // res.send({user: {user_id: user.id, user_email: user.email}});
       res.redirect('../');
       return;
@@ -30,7 +33,3 @@ router.post('/', (req, res) => {
 });
 
 module.exports = router;
-//app.post("/logout", (req, res) => {
-//   req.session = null;
-//   return res.redirect("../");
-// });

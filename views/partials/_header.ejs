@@ -16,17 +16,17 @@
     <option value="shopping">Shopping</option>
   </select>
     </div>
-
+    [? if (user) { ?]
       <form method="POST" action="/logout">
-        <button type="submit">logout</button>
+        <button type="submit">Log Out</button>
       </form>
-
+      [? } else { ?]
         <form method="GET" action="/register">
           <button type="submit">Register</button>
         </form>
         <form method="GET" action="/login">
           <button type="submit">Login</button>
         </form>
-
+        [? }; ?]
   </nav>
 </header>

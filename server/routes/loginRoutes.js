@@ -17,7 +17,10 @@ const login = (email, password) => {
 
 // GET for login
 router.get('/', (req, res) => {
-   return res.render('login');
+  const templateVar = {
+    user: req.session["userId"]
+  }
+   return res.render('login',templateVar);
 });
 
 // POST for login
@@ -31,7 +34,7 @@ router.post('/', (req, res) => {
         return;
       }
       console.log(user);
-      req.session.userId = user.id;
+      req.session["userId"] = user.id;
       // res.send({user: {email: user.email, id: user.id}});
       res.redirect('../');
       return;

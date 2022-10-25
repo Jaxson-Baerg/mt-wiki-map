@@ -12,7 +12,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/create', (req, res) => {
-  res.render('createMarkers');
+  const templateVar = {
+    user: req.session["userId"]
+  }
+  res.render('createMarkers', templateVar);
 });
 
 module.exports = router;

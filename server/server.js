@@ -35,7 +35,6 @@ const loginRoutes = require('./routes/loginRoutes');
 const registerRoutes = require('./routes/registerRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const markersRoutes = require('./routes/markersRoutes');
-
 // Mount all resource routes
 app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
@@ -44,13 +43,34 @@ app.use('/markers', markersRoutes);
 
 // Change ejs delimiters to bypass vscode linting
 const ejs = require('ejs');
+const { Pool } = require('pg');
 ejs.delimiter = '?';
 ejs.openDelimiter = '[';
 ejs.closeDelimiter = ']';
 app.get('/', (req, res) => {
-  res.render('index', { apiKey: process.env.API_KEY });
+  const templateVar = {
+    user: req.session["userId"],
+    apiKey: process.env.API_KEY
+  }
+  res.render('index', templateVar,);
 });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+app.post("/logout", (req, res) => {
+  req.session = null;
+  return res.redirect("../");
+});
+
+const getEmail = function(email) {
+  return Pool
+  .query(`SELECT * FROM users WHERE users.email LIKE $1`,[email])
+  .then((result) => {
+    return result.rows[0];
+  })
+  .catch((err) => {
+    console.log(err.message);
+  })
+}
