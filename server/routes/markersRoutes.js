@@ -1,5 +1,6 @@
 const express = require('express');
 const markersQueries = require('../db/queries/markersQueries');
+const geoCode = require('../map-api/geocode');
 const router = express.Router();
 
 router.get('/', (req, res) => {

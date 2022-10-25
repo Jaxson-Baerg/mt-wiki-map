@@ -20,10 +20,16 @@ const loadMarkers = markers => {
       infowindow.setContent(`
       <h1>${marker.title}</h1>
       <div class="content">
-        <p>${marker.address}</p>
+        <p>Address: ${marker.address}</p>
         <p>${marker.description}</p>
         <p>Rating: ${marker.rating}/5</p>
         <img src=${marker.thumbnail_photo_url}>
+        <form method="POST" action="/markers">
+          <button type="submit">Edit</button>
+        </form>
+        <form method="POST" action="/markers">
+          <button type="submit">Delete</button>
+        </form>
       </div>
       `);
       infowindow.open(map, newMarker);
