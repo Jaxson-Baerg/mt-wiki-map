@@ -19,9 +19,9 @@
         </li>
       [? }); ?]
     </ul>
-    <h4>All the markers you've made:</h4>
+    <h4>All your favourite markers:</h4>
     <ul>
-      [? favourites.forEach(favourite => { ?]
+      [? finalFavArr.forEach(favourite => { ?]
         <li>
           <span>Coordinates: [?= favourite.latitude ?], [?= favourite.longitude ?]</span>
           <span>Address: [?= favourite.address ?]</span>
