@@ -15,3 +15,9 @@ $(() => {
     });
   });
 });
+
+$('.load-profile').on('click', () => {
+  $.get('/profile')
+    .then(() => console.log('success!'))
+    .catch(err => console.log(err));
+});
