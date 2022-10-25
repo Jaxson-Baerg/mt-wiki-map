@@ -65,7 +65,7 @@ router.post('/delete/:id', (req, res) => {
 router.post('/:id', (req, res) => {
   const marker = req.body;
   marker.id = req.params.id;
-  markersQueries.editMarker(marker)
+  markersQueries.editMarker(marker, req.session.userId)
     .then(marker => {
       console.log("edited");
       res.redirect('/');
