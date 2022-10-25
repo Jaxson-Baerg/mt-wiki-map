@@ -7,6 +7,13 @@ const getMarkersByCategory = (category) => {
     .catch(err => {console.log(err)});
 };
 
+const getFavouriteMarkersById = (userId) => {
+  return db
+    .query(`SELECT * FROM markers JOIN users ON user_id = users.id WHERE marker.id IN (SELECT favourites FROM users WHERE id = $1);`, [userId])
+    .then(result => {return Promise.resolve(result.rows)})
+    .catch(err => {console.log(err)});
+};
+
 const addMarker = (marker) => {
   return db
     .query(`INSERT INTO markers (latitude, longitude, thumbnail_photo_url, rating, title, description, user_id, public, category) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *;`, [marker.latitude, marker.longitude, marker.thumbnail_photo_url, marker.rating, marker.title, marker.description, marker.user_id, marker.public, marker.category])
@@ -23,6 +30,7 @@ const deleteMarker = (id) => {
 
 module.exports = {
   getMarkersByCategory,
+  getFavouriteMarkersById,
   addMarker,
   deleteMarker
 };
