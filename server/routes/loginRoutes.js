@@ -17,7 +17,7 @@ const login = (email, password) => {
 
 // GET for login
 router.get('/', (req, res) => {
-   return res.render('login');
+   return res.render('login', { loggedIn: req.session.userId });
 });
 
 // POST for login

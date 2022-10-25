@@ -2,6 +2,8 @@
   <nav class="navbar">
     <a class="navbar-brand"> Wiki Map</a>
 
+    [? console.log(loggedIn); ?]
+
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="/">Map</a>
       <a class="nav-item nav-link" href="/users/create">Create Marker</a>
@@ -17,7 +19,7 @@
   </select>
     </div>
 
-      <form method="POST" action="/logout">
+      <form method="GET" action="/users/logout">
         <button type="submit">logout</button>
       </form>
 

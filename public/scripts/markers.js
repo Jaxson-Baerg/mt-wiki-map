@@ -28,7 +28,7 @@ const loadMarkers = markers => {
         <img src=${marker.thumbnail_photo_url} width="300" height="250">
         <p>Public: ${marker.public}</p>
         <button class="edit-button" type="button">Edit</button>
-        <form method="POST" action="/markers/${marker.id}?_method=DELETE">
+        <form method="POST" action="/markers/delete/${marker.id}">
           <button type="submit">Delete</button>
         </form>
       </div>
@@ -36,8 +36,6 @@ const loadMarkers = markers => {
         <form class="edit-marker" action="/markers/${marker.id}" method="POST">
           <label class="title-edit">Title</label>
           <input name="title" class="title-edit" value="${marker.title}">
-          <label>Address</label>
-          <input name="address" value="${marker.address}">
           <label>Category</label>
           <input name="category" value="${marker.category}">
           <label>Description</label>
@@ -45,7 +43,7 @@ const loadMarkers = markers => {
           <label>rating</label>
           <input name="rating" value="${marker.rating}">
           <label>Thumbnail Photo URL</label>
-          <input name="thumbnail_photo_url" value="${marker.thumbnail_photo_url}">
+          <input name="thumbnail_photo_url" type="file" value="${marker.thumbnail_photo_url}">
           <label>Public</label>
           <input name="public" value="${marker.public}">
           <button type="submit">Submit</button>
@@ -85,8 +83,16 @@ const loadMarkers = markers => {
 };
 
 const getMarkers = (category) => {
-  $.get('/markers', {category: category})
-    .then(markers => loadMarkers(markers))
+  $.get('/markers/category', {category: category})
+    .then(catMarkers => {
+      $.get('/markers/user')
+        .then(userMarkers => {
+          const markers = catMarkers.concat(userMarkers);
+          loadMarkers(markers);
+        })
+        .catch(err => {console.log(err)});
+
+    })
     .catch(err => {console.log(err)});
 };
 

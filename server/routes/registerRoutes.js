@@ -6,7 +6,7 @@ const router  = express.Router();
 
 // GET for register
 router.get('/', (req, res) => {
-  return res.render('register');
+  return res.render('register', { loggedIn: req.session.userId });
 });
 
 // POST for register

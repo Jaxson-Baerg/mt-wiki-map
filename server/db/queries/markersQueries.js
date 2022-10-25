@@ -2,14 +2,21 @@ const db = require('../connection').db;
 
 const getMarkersByCategory = (category) => {
   return db
-    .query(`SELECT * FROM markers WHERE category=(CASE WHEN $1='all' THEN category ELSE $1 END);`, [category])
+    .query(`SELECT * FROM markers WHERE category=(CASE WHEN $1='all' THEN category ELSE $1 END) AND public=true;`, [category])
+    .then(result => {return Promise.resolve(result.rows)})
+    .catch(err => {console.log(err)});
+};
+
+const getUserMarkers = (user_id) => {
+  return db
+    .query(`SELECT * FROM markers WHERE user_id=$1 AND public=false;`, [user_id])
     .then(result => {return Promise.resolve(result.rows)})
     .catch(err => {console.log(err)});
 };
 
 const addMarker = (marker) => {
   return db
-    .query(`INSERT INTO markers (latitude, longitude, thumbnail_photo_url, rating, title, description, user_id, public, category) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *;`, [marker.latitude, marker.longitude, marker.thumbnail_photo_url, marker.rating, marker.title, marker.description, marker.user_id, marker.public, marker.category])
+    .query(`INSERT INTO markers (latitude, longitude, address, thumbnail_photo_url, rating, title, description, user_id, public, category) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;`, [marker.latitude, marker.longitude, marker.address, marker.thumbnail_photo_url, marker.rating, marker.title, marker.description, marker.user_id, marker.display, marker.category])
     .then(result => {return Promise.resolve(result.rows)})
     .catch(err => {console.log(err)});
 };
@@ -31,6 +38,7 @@ const editMarker = (marker) => {
 
 module.exports = {
   getMarkersByCategory,
+  getUserMarkers,
   addMarker,
   deleteMarker,
   editMarker

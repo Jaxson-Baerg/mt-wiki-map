@@ -11,8 +11,13 @@ router.get('/', (req, res) => {
     .catch(err => res.send(err));
 });
 
+router.get('/logout', (req, res) => {
+  req.session = null;
+  res.redirect('../');
+});
+
 router.get('/create', (req, res) => {
-  res.render('createMarkers');
+  res.render('createMarkers', { loggedIn: req.session.userId });
 });
 
 module.exports = router;

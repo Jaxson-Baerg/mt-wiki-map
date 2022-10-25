@@ -47,7 +47,7 @@ ejs.delimiter = '?';
 ejs.openDelimiter = '[';
 ejs.closeDelimiter = ']';
 app.get('/', (req, res) => {
-  res.render('index', { apiKey: process.env.API_KEY });
+  res.render('index', { apiKey: process.env.API_KEY, loggedIn: req.session.userId });
 });
 
 app.listen(PORT, () => {
