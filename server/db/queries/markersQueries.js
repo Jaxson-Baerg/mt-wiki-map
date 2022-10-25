@@ -9,7 +9,14 @@ const getMarkerById = (marker_id) => {
 
 const getMarkersByCategory = (category) => {
   return db
-    .query(`SELECT DISTINCT * FROM markers JOIN users ON markers.user_id = users.id WHERE (CASE WHEN $1='all' THEN category = category WHEN $1 = 'favourites' THEN markers.id = ANY(users.favourites) ELSE category = $1 END);`, [category]) // Might need to add 'AND public=true' later
+    .query(`SELECT DISTINCT * FROM markers JOIN users ON markers.user_id = users.id WHERE (CASE WHEN $1='all' THEN category = category WHEN $1 = 'favourites' THEN markers.id = ANY(users.favourites) ELSE category = $1 END);`, [category])
+    .then(result => {return Promise.resolve(result.rows)})
+    .catch(err => {console.log(err)});
+};
+
+const getPublicMarkersByCategory = (category) => {
+  return db
+    .query(`SELECT DISTINCT * FROM markers JOIN users ON markers.user_id = users.id WHERE (CASE WHEN $1='all' THEN category = category WHEN $1 = 'favourites' THEN markers.id = ANY(users.favourites) ELSE category = $1 END) AND public=true;`, [category])
     .then(result => {return Promise.resolve(result.rows)})
     .catch(err => {console.log(err)});
 };
@@ -54,6 +61,7 @@ module.exports = {
   getMarkerById,
   getUserMarkers,
   getMarkersByCategory,
+  getPublicMarkersByCategory,
   getFavouriteMarkersById,
   addMarker,
   deleteMarker,

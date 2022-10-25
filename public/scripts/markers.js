@@ -122,7 +122,7 @@ const loadMarkers = (markers, owned, reset) => {
 };
 
 const getMarkers = (category) => {
-  $.get('/markers/category', {category: category})
+  $.get('/markers/public/category', {category: category})
     .then(publicMarkers => {
       $.get('/markers/user')
         .then(userMarkers => {
