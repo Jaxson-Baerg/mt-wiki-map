@@ -2,7 +2,7 @@ const db = require('../connection').db;
 
 const getMarkersByCategory = (category) => {
   return db
-    .query(`SELECT * FROM markers WHERE category=(CASE WHEN $1='all' THEN category ELSE $1 END);`, [category])
+    .query(`SELECT DISTINCT * FROM markers JOIN favorite ON markers.user_id = users.id WHERE category=(CASE WHEN $1='all' THEN category WHEN $1 = 'favorite' THEN users.favorite ELSE $1 END);`, [category])
     .then(result => {return Promise.resolve(result.rows)})
     .catch(err => {console.log(err)});
 };
