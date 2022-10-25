@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+</head>
+<body>
+  <h2>User Profile for: [?= email ?]</h2>
+  <div class="all-markers">
+    <h4>All the markers you've made:</h4>
+    <ul>
+      [? markers.forEach(marker => { ?]
+        <li>
+          <span>Coordinates: [?= marker.latitude ?], [?= marker.longitude ?]</span>
+          <span>Address: [?= marker.address ?]</span>
+        </li>
+      [? }); ?]
+    </ul>
+    <h4>All the markers you've made:</h4>
+    <ul>
+      [? favourites.forEach(favourite => { ?]
+        <li>
+          <span>Coordinates: [?= favourite.latitude ?], [?= favourite.longitude ?]</span>
+          <span>Address: [?= favourite.address ?]</span>
+        </li>
+      [? }); ?]
+    </ul>
+  </div>
+</body>
+</html>
