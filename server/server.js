@@ -63,14 +63,3 @@ app.post("/logout", (req, res) => {
   req.session = null;
   return res.redirect("../");
 });
-
-const getEmail = function(email) {
-  return Pool
-  .query(`SELECT * FROM users WHERE users.email LIKE $1`,[email])
-  .then((result) => {
-    return result.rows[0];
-  })
-  .catch((err) => {
-    console.log(err.message);
-  })
-}

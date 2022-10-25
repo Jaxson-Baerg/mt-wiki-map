@@ -12,10 +12,24 @@ router.get('/', (req, res) => {
 });
 
 router.get('/create', (req, res) => {
+  const userId = req.session["userId"]
+  if (!userId) {
+    return res.redirect("../login");
+  }
   const templateVar = {
     user: req.session["userId"]
   }
   res.render('createMarkers', templateVar);
 });
 
+router.get('/profile', (req, res) => {
+  const userId = req.session["userId"]
+  if (!userId) {
+    return res.redirect("../login");
+  }
+  const templateVar = {
+    user: req.session["userId"]
+  }
+  res.render('profile', templateVar);
+})
 module.exports = router;

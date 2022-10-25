@@ -6,6 +6,10 @@ const router  = express.Router();
 
 // GET for register
 router.get('/', (req, res) => {
+  const userId = req.session["userId"]
+  if (userId) {
+    return res.redirect("../");
+  }
   const templateVar = {
     user: req.session["userId"]
   }
