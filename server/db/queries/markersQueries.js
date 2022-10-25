@@ -54,11 +54,7 @@ module.exports = {
   getMarkerById,
   getUserMarkers,
   getMarkersByCategory,
-<<<<<<< HEAD
   getFavouriteMarkersById,
-=======
-  getUserMarkers,
->>>>>>> jaxson
   addMarker,
   deleteMarker,
   editMarker
