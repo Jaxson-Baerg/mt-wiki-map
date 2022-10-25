@@ -2,7 +2,7 @@ const db = require('../connection').db;
 
 const getMarkersByCategory = (category) => {
   return db
-    .query(`SELECT * FROM markers WHERE category=(CASE WHEN $1='' THEN category ELSE $1 END);`, [category])
+    .query(`SELECT * FROM markers WHERE category=(CASE WHEN $1='all' THEN category ELSE $1 END);`, [category])
     .then(result => {return Promise.resolve(result.rows)})
     .catch(err => {console.log(err)});
 };
