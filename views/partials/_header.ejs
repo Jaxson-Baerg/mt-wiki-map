@@ -2,6 +2,8 @@
   <nav class="navbar">
     <a class="navbar-brand"> Wiki Map</a>
 
+    [? console.log(loggedIn); ?]
+
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="/">Map</a>
       <a class="nav-item nav-link" href="/users/create">Create Marker</a>
@@ -9,7 +11,7 @@
 
       <label for="category">Sort By:</label>
   <select class="category-selector" name="category">
-      <option value="all">All</option>
+    <option value="all">All</option>
     <option value="food">Food</option>
     <option value="activity">Activity</option>
     <option value="accomodation">Accomodation</option>
@@ -18,8 +20,8 @@
   </select>
     </div>
     [? if (user) { ?]
-      <form method="POST" action="/logout">
-        <button type="submit">Log Out</button>
+      <form method="GET" action="/users/logout">
+        <button type="submit">Logout</button>
       </form>
       [? } else { ?]
         <form method="GET" action="/register">

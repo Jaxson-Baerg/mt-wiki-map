@@ -14,7 +14,6 @@
       <br>
       <label>Catergory</label>
       <select name="category">
-      <option value="all">All</option>
       <option value="food">Food</option>
       <option value="activity">Activity</option>
       <option value="accomodation">Accomodation</option>
@@ -22,10 +21,10 @@
     </select>
       <br>
       <label>Rating</label>
-      <input name="rating" type="number" min="0" max="10"  />
+      <input name="rating" type="number" min="0" max="5"  />
       <br>
       <label>Photo</label>
-      <input name="thumbnail_photo_url" type="image" />
+      <input name="thumbnail_photo_url" type="file" />
       <br>
       <label>Address</label>
       <input name="address" type="text" required />
@@ -36,7 +35,7 @@
       <input name="display" type="radio" value="false" />
       <br>
       <label>Description</label>
-      <textarea></textarea>
+      <textarea name="description"></textarea>
       <br>
       <button type="submit">Submit</button>
   </form>

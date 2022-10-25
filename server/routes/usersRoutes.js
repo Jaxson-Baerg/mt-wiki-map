@@ -12,6 +12,11 @@ router.get('/', (req, res) => {
     .catch(err => res.send(err));
 });
 
+router.get('/logout', (req, res) => {
+  req.session = null;
+  res.redirect('../');
+});
+
 router.get('/create', (req, res) => {
   const userId = req.session["userId"]
   if (!userId) {
@@ -65,7 +70,6 @@ router.get('/profile', (req, res) => {
         });
     })
     .catch(err => res.send(err));
-
 });
 
 module.exports = router;
