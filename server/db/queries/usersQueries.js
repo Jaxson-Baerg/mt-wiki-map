@@ -7,6 +7,13 @@ const getUserWithEmail = (email) => {
     .catch(err => {console.log(err)});
 };
 
+const getEmailById = (userId) => {
+  return db
+    .query(`SELECT email FROM users WHERE user_id=$1;`, [userId])
+    .then(result => {return Promise.resolve(result.rows[0])})
+    .catch(err => {console.log(err)});
+};
+
 const addUser = (user) => {
   return db
     .query(`INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *;`, [user.email, user.password])
@@ -23,6 +30,7 @@ const getUsers = () => {
 
 module.exports = {
   getUserWithEmail,
+  getEmailById,
   addUser,
   getUsers
 };
