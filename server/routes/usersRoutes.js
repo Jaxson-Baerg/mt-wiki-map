@@ -23,6 +23,21 @@ router.get('/create', (req, res) => {
   res.render('createMarkers', templateVar);
 });
 
+const helper = (favourites, favouritesArr) => {
+  return new Promise((resolve, reject) => {
+    favourites.forEach(favourite => {
+      markersQueries.getMarkerById(favourite)
+      .then(fav => {
+        favouritesArr.push(fav);
+        if (favourites.indexOf(favourite) === favourites.length - 1) {
+          resolve(favouritesArr);
+        }
+      })
+      .catch(err => res.send(err));
+    })
+  })
+}
+
 router.get('/profile', (req, res) => {
   let userId = req.session.userId;
   if (!userId) {
@@ -32,18 +47,22 @@ router.get('/profile', (req, res) => {
   let markers;
   let favourites;
   usersQueries.getEmailById(userId)
-    .then(res => {
-      email = res;
-      usersQueries.getUserMarkers(userId);
-    })
-    .then(res => {
-      markers = res;
-      usersQueries.getFavouriteMarkersById(userId);
-    })
-    .then(res => {
-      favourites = res;
-      const templateVars = {email, markers, favourites}
-      return res.render('profile', templateVars);
+    .then(emailResult => {
+      email = emailResult.email;
+      markersQueries.getUserMarkers(userId)
+        .then(markerResult => {
+          markers = markerResult;
+          markersQueries.getFavouriteMarkersById(userId)
+            .then(favouritesResult => {
+              favourites = favouritesResult;
+              let favouritesArr = [];
+              helper(favourites, favouritesArr)
+              .then((finalFavArr) => {
+                const templateVars = {email, markers, finalFavArr}
+                res.render('profile', templateVars);
+              })
+            });
+        });
     })
     .catch(err => res.send(err));
 

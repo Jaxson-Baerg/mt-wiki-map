@@ -9,7 +9,7 @@ const getUserWithEmail = (email) => {
 
 const getEmailById = (userId) => {
   return db
-    .query(`SELECT email FROM users WHERE user_id=$1;`, [userId])
+    .query(`SELECT email FROM users WHERE id=$1;`, [userId])
     .then(result => {return Promise.resolve(result.rows[0])})
     .catch(err => {console.log(err)});
 };
