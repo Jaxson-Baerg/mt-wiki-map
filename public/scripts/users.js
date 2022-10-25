@@ -17,7 +17,7 @@ $(() => {
 });
 
 $('.load-profile').on('click', () => {
-  $.get('/profile')
+  $.get('/users/profile')
     .then(() => console.log('success!'))
     .catch(err => console.log(err));
 });
