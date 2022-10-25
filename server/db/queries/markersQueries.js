@@ -1,16 +1,30 @@
 const db = require('../connection').db;
 
+const getMarkerById = (marker_id) => {
+  return db
+    .query(`SELECT * FROM markers WHERE id=$1;`, [marker_id])
+    .then(result => {return Promise.resolve(result.rows[0])})
+    .catch(err => {console.log(err)});
+};
+
+const getUserMarkers = (user_id) => {
+  return db
+    .query(`SELECT * FROM markers WHERE user_id=$1;`, [user_id])
+    .then(result => {return Promise.resolve(result.rows)})
+    .catch(err => {console.log(err)});
+};
+
 const getMarkersByCategory = (category) => {
   return db
-    .query(`SELECT DISTINCT * FROM markers JOIN favorite ON markers.user_id = users.id WHERE category=(CASE WHEN $1='all' THEN category WHEN $1 = 'favorite' THEN users.favorite ELSE $1 END);`, [category])
+    .query(`SELECT DISTINCT * FROM markers JOIN users ON markers.user_id = users.id WHERE (CASE WHEN $1='all' THEN category = category WHEN $1 = 'favourites' THEN markers.id = ANY(users.favourites) ELSE category = $1 END);`, [category])
     .then(result => {return Promise.resolve(result.rows)})
     .catch(err => {console.log(err)});
 };
 
 const getFavouriteMarkersById = (userId) => {
   return db
-    .query(`SELECT * FROM markers JOIN users ON user_id = users.id WHERE marker.id IN (SELECT favourites FROM users WHERE id = $1);`, [userId])
-    .then(result => {return Promise.resolve(result.rows)})
+    .query(`SELECT favourites FROM users WHERE id = $1;`, [userId])
+    .then(result => {return Promise.resolve(result.rows[0].favourites)})
     .catch(err => {console.log(err)});
 };
 
@@ -29,6 +43,8 @@ const deleteMarker = (id) => {
 };
 
 module.exports = {
+  getMarkerById,
+  getUserMarkers,
   getMarkersByCategory,
   getFavouriteMarkersById,
   addMarker,
