@@ -21,8 +21,17 @@ const deleteMarker = (id) => {
     .catch(err => {console.log(err)});
 };
 
+const editMarker = (marker) => {
+  console.log(marker);
+  return db
+    .query(`UPDATE markers SET thumbnail_photo_url=$1, rating=$2, title=$3, description=$4, public=$5, category=$6 WHERE id=$7`, [marker.thumbnail_photo_url, marker.rating, marker.title, marker.description, marker.public, marker.category, marker.id])
+    .then(result => {return Promise.resolve(result.rows)})
+    .catch(err => {console.log(err)});
+};
+
 module.exports = {
   getMarkersByCategory,
   addMarker,
-  deleteMarker
+  deleteMarker,
+  editMarker
 };

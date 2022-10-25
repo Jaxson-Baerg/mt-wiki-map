@@ -1,6 +1,5 @@
 // load .env data into process.env
 require('dotenv').config();
-const geoCode =  require('./map-api/geocode');
 
 // Web server config
 const sassMiddleware = require('../lib/sass-middleware');
