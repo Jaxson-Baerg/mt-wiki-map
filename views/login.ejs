@@ -5,26 +5,34 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" type= "text/css" href="/styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/layout.css" />
   <title>Login</title>
 </head>
 
-<body>
+<body class="loginbody">
   [?- include('partials/_header'); ?]
-    <h2>Login Below</h2>
-    <p>Don't have an account? <a href="/register">Create</a></p>
-
+  <div class="login">
+    <h1>Login</h1>
     <form action="/login" method="post">
-      <label>Email:</label>
-      <input name="email" type="email" />
-      <br />
-
-      <label>Password:</label>
-      <input name="password" type="password" />
-
-      <button type="submit">Login</button>
-
+      <div class="infoField">
+        <input name="email" type="email" />
+        <span></span>
+        <label>Email</label>
+      </div>
+      <div class="infoField">
+        <input name="password" type="password" />
+        <span></span>
+        <label>Password</label>
+      </div>
+      <button class="loginButton" type="submit">Login</button>
+      <div class="SignUp">
+        Not a member? <a href="/register">SignUp</a>
+      </div>
     </form>
-
+  </div>
 </body>
 
 </html>
