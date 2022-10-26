@@ -66,6 +66,14 @@ router.post('/favourite/:id', (req, res) => {
   .catch(err => res.send(err));
 });
 
+router.post('/favourite/:id/remove', (req, res) => {
+  const user_id = req.session.userId;
+  const marker_id = req.params.id;
+  markersQueries.removeFavouriteMarker(user_id, marker_id)
+  .then(() => res.redirect('../../../'))
+  .catch(err => res.send(err));
+});
+
 router.post('/delete/:id', (req, res) => {
   const marker_id = req.params.id;
   markersQueries.getMarkerById(marker_id)
