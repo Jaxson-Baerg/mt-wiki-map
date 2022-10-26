@@ -5,27 +5,34 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" type= "text/css" href="/styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/layout.css" />
   <title>Register</title>
 </head>
 
-<body>
+<body class="loginbody">
   [?- include('partials/_header'); ?]
-    <h2>Register Below</h2>
-
-    <p>Already have an account? <a href="/login">Login</a></p>
-
+  <div class="login">
+    <h1>Register</h1>
     <form action="/register" method="post">
-      <label>Email:</label>
-      <input name="email" type="email" />
-      <br />
-
-      <label>Password:</label>
-      <input name="password" type="password" />
-
-      <button type="submit">Submit</button>
-
+      <div class="infoField">
+        <input name="email" type="email" />
+        <span></span>
+        <label>Email</label>
+      </div>
+      <div class="infoField">
+        <input name="password" type="password" />
+        <span></span>
+        <label>Password</label>
+      </div>
+      <button class="loginButton" type="submit">Register</button>
+      <div class="SignUp">
+        Already A Member? <a href="/register">Login</a>
+      </div>
     </form>
-
+  </div>
 </body>
 
 </html>

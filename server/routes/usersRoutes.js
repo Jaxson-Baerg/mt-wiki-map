@@ -63,7 +63,7 @@ router.get('/profile', (req, res) => {
               let favouritesArr = [];
               helper(favourites, favouritesArr)
               .then((finalFavArr) => {
-                const templateVars = {email, markers, finalFavArr}
+                const templateVars = {email, markers, finalFavArr, user: userId}
                 res.render('profile', templateVars);
               })
             });

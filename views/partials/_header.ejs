@@ -1,32 +1,35 @@
 <header>
+  <!-- <link rel="icon" type="image/x-icon" href="/maps-icon-16.png" height="15" width="15"> -->
   <nav class="navbar">
-    <a class="navbar-brand"> Wiki Map</a>
+    <a class="navbar-logo"> <h1>Wiki Map</h1><img src="/maps-icon-16.png" height="70" width="70"/></a>
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="/">Map</a>
-      <a class="nav-item nav-link" href="/users/create">Create Marker</a>
-      <a class="nav-item nav-link load-profile" href="/users/profile">Profile</a>
+      <a class="nav-link" href="/">Map</a>
+      <a class="nav-link" href="/users/create">Create Marker</a>
+      <a class="nav-link load-profile" href="/users/profile">Profile</a>
 
       <label for="category">Sort By:</label>
-  <select class="category-selector" name="category">
-    <option value="all">All</option>
-    <option value="food">Food</option>
-    <option value="activity">Activity</option>
-    <option value="accomodation">Accomodation</option>
-    <option value="shopping">Shopping</option>
-    <option value="favourites">Favourites</option>
-  </select>
+      <select class="category-selector" name="category">
+        <option value="all">All</option>
+        <option value="food">Food</option>
+        <option value="activity">Activity</option>
+        <option value="accomodation">Accomodation</option>
+        <option value="shopping">Shopping</option>
+        <option value="favourites">Favourites</option>
+      </select>
     </div>
     [? if (user) { ?]
-      <form method="GET" action="/users/logout">
-        <button type="submit">Logout</button>
+    <form method="GET" action="/users/logout">
+      <button class="button type="submit">Logout</button>
+    </form>
+    [? } else { ?]
+    <span class="flexbutton">
+      <form method="GET" action="/register">
+        <button class="button" type="submit">SignUp</button>
       </form>
-      [? } else { ?]
-        <form method="GET" action="/register">
-          <button type="submit">Register</button>
-        </form>
-        <form method="GET" action="/login">
-          <button type="submit">Login</button>
-        </form>
-        [? }; ?]
+      <form method="GET" action="/login">
+        <button class="button" type="submit">Login</button>
+      </form>
+    </span>
+    [? }; ?]
   </nav>
 </header>
