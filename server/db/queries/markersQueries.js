@@ -42,6 +42,20 @@ const addMarker = (marker) => {
     .catch(err => {console.log(err)});
 };
 
+const addFavouriteMarker = (userId, markerId) => {
+  return db
+    .query(`UPDATE users SET favourites = array_append(favourites, $1) WHERE id = $2;`, [markerId, userId])
+    .then(result => {return Promise.resolve(result.rows)})
+    .catch(err => {console.log(err)});
+}
+
+const removeFavouriteMarker = (userId, markerId) => {
+  return db
+    .query(`UPDATE users SET favourites = array_remove(favourites, $1) WHERE id = $2;`, [markerId, userId])
+    .then(result => {return Promise.resolve(result.rows)})
+    .catch(err => {console.log(err)});
+}
+
 const deleteMarker = (id) => {
   return db
     .query(`DELETE FROM markers WHERE id=$1 RETURNING *;`, [id])
@@ -64,6 +78,8 @@ module.exports = {
   getPublicMarkersByCategory,
   getFavouriteMarkersById,
   addMarker,
+  addFavouriteMarker,
+  removeFavouriteMarker,
   deleteMarker,
   editMarker
 };
