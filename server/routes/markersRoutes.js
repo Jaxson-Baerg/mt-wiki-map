@@ -58,6 +58,14 @@ router.post('/', (req, res) => {
   }
 });
 
+router.post('/favourite/:id', (req, res) => {
+  const user_id = req.session.userId;
+  const marker_id = req.params.id;
+  markersQueries.addFavouriteMarker(user_id, marker_id)
+  .then(() => res.redirect('../../'))
+  .catch(err => res.send(err));
+});
+
 router.post('/delete/:id', (req, res) => {
   const marker_id = req.params.id;
   markersQueries.getMarkerById(marker_id)
