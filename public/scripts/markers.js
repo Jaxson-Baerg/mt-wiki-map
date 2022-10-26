@@ -3,7 +3,7 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
 
   if (reset) {
     // Clear all pre-existing markers from map
-    markerArr.forEach(marker => marker.setMap(null));
+    markerArr.forEach(marker => marker.map = null);
     markerArr.length = 0;
   }
 
@@ -31,12 +31,9 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
       scaledSize : new google.maps.Size(40, 40),
     };
 
-    const newMarker = new google.maps.Marker({
+    const newMarker = new google.maps.marker.AdvancedMarkerView({
       position: { lat: marker.latitude, lng: marker.longitude },
-      map: map,
-      animation: google.maps.Animation.DROP,
-      title: marker.title,
-      icon: image
+      map: map
     });
 
     // Add info window to each marker

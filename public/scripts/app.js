@@ -11,7 +11,8 @@ const initMap = () => {
 
   mapOptions = {
     zoom: 4,
-    center: canada
+    center: canada,
+    mapId: '4a98d4a67a95b928'
   }
 
   // The map, centered at Canada
