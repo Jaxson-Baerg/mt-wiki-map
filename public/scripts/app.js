@@ -16,16 +16,6 @@ const initMap = () => {
 
   // The map, centered at Canada
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-  const placeMarkerAndPanTo = (latLng, map) => {
-    new google.maps.Marker({
-      position: latLng,
-      map: map,
-    });
-    map.panTo(latLng);
-  }
-
-  map.addListener("click", e => placeMarkerAndPanTo(e.latLng, map));
 }
 
 window.initMap = initMap;
