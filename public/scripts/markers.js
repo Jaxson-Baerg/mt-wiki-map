@@ -53,6 +53,9 @@ const loadMarkers = (markers, owned, reset) => {
           <p>Rating: ${marker.rating}/5</p>
           <img src=${marker.thumbnail_photo_url} width="300" height="250">
           <p>Public: ${marker.public}</p>
+          <form method="POST" action="/markers/favourite/${marker.id}">
+            <button type="submit">Favourite</button>
+          </form>
           <button class="edit-button" type="button">Edit</button>
           <form method="POST" action="/markers/delete/${marker.id}">
             <button type="submit">Delete</button>
