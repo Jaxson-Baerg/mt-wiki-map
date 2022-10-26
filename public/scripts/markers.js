@@ -1,5 +1,5 @@
 /// paste loadmarkers
-const loadMarkers = (markers, owned, reset) => {
+const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
 
   if (reset) {
     // Clear all pre-existing markers from map
@@ -43,56 +43,145 @@ const loadMarkers = (markers, owned, reset) => {
     google.maps.event.addListener(newMarker, "click", () => {
       $('.gm-ui-hover-effect').trigger('click');
       let infowindow = new google.maps.InfoWindow();
-      if (owned) {
-        infowindow.setContent(`
-        <div class="content">
-          <h1>${marker.title}</h1>
-          <p>Address: ${marker.address}</p>
-          <p>Category: ${marker.category}</p>
-          <p>${marker.description}</p>
-          <p>Rating: ${marker.rating}/5</p>
-          <img src=${marker.thumbnail_photo_url} width="300" height="250">
-          <p>Public: ${marker.public}</p>
-          <form method="POST" action="/markers/favourite/${marker.id}">
-            <button type="submit" class="add-fav">Favourite</button>
-          </form>
-          <form method="POST" action="/markers/favourite/${marker.id}/remove">
-            <button type="submit" class="remove-fav">Unfavourite</button>
-          </form>
-          <button class="edit-button" type="button">Edit</button>
-          <form method="POST" action="/markers/delete/${marker.id}">
-            <button type="submit">Delete</button>
-          </form>
-        </div>
-        <div class="edit-content" hidden>
-          <form class="edit-marker" action="/markers/${marker.id}" method="POST">
-            <label class="title-edit">Title</label>
-            <input name="title" class="title-edit" value="${marker.title}">
-            <label>Category</label>
-            <input name="category" value="${marker.category}">
-            <label>Description</label>
-            <input name="description" value="${marker.description}">
-            <label>rating</label>
-            <input name="rating" value="${marker.rating}">
-            <label>Thumbnail Photo URL</label>
-            <input name="thumbnail_photo_url" type="file" value="${marker.thumbnail_photo_url}">
-            <label>Public</label>
-            <input name="public" value="${marker.public}">
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-        `);
+      if (loggedIn) {
+        if (!usersFavourites.includes(marker.id)) {
+          if (owned) {
+            infowindow.setContent(`
+              <div class="content">
+                <h1>${marker.title}</h1>
+                <p>Address: ${marker.address}</p>
+                <p>Category: ${marker.category}</p>
+                <p>${marker.description}</p>
+                <p>Rating: ${marker.rating}/5</p>
+                <img src=${marker.thumbnail_photo_url} width="300" height="250">
+                <p>Public: ${marker.public}</p>
+                <div class="favourite-container">
+                  <form class="add-fav" method="POST" action="/markers/favourite/${marker.id}">
+                    <button type="submit">Favourite</button>
+                  </form>
+                  <form class="remove-fav" method="POST" action="/markers/favourite/${marker.id}/remove" hidden>
+                    <button type="submit">Unfavourite</button>
+                  </form>
+                </div>
+                <button class="edit-button" type="button">Edit</button>
+                <form method="POST" action="/markers/delete/${marker.id}">
+                  <button type="submit">Delete</button>
+                </form>
+              </div>
+              <div class="edit-content" hidden>
+                <form class="edit-marker" action="/markers/${marker.id}" method="POST">
+                  <label class="title-edit">Title</label>
+                  <input name="title" class="title-edit" value="${marker.title}">
+                  <label>Category</label>
+                  <input name="category" value="${marker.category}">
+                  <label>Description</label>
+                  <input name="description" value="${marker.description}">
+                  <label>rating</label>
+                  <input name="rating" value="${marker.rating}">
+                  <label>Thumbnail Photo URL</label>
+                  <input name="thumbnail_photo_url" type="file" value="${marker.thumbnail_photo_url}">
+                  <label>Public</label>
+                  <input name="public" value="${marker.public}">
+                  <button type="submit">Submit</button>
+                </form>
+              </div>
+            `);
+          } else {
+            infowindow.setContent(`
+              <div class="content">
+                <h1>${marker.title}</h1>
+                <p>Address: ${marker.address}</p>
+                <p>Category: ${marker.category}</p>
+                <p>${marker.description}</p>
+                <p>Rating: ${marker.rating}/5</p>
+                <img src=${marker.thumbnail_photo_url} width="300" height="250">
+                <p>Public: ${marker.public}</p>
+                <div class="favourite-container">
+                  <form class="add-fav" method="POST" action="/markers/favourite/${marker.id}">
+                    <button type="submit">Favourite</button>
+                  </form>
+                  <form class="remove-fav" method="POST" action="/markers/favourite/${marker.id}/remove" hidden>
+                    <button type="submit">Unfavourite</button>
+                  </form>
+                </div>
+              </div>
+            `);
+          }
+        } else {
+          if (owned) {
+            infowindow.setContent(`
+              <div class="content">
+                <h1>${marker.title}</h1>
+                <p>Address: ${marker.address}</p>
+                <p>Category: ${marker.category}</p>
+                <p>${marker.description}</p>
+                <p>Rating: ${marker.rating}/5</p>
+                <img src=${marker.thumbnail_photo_url} width="300" height="250">
+                <p>Public: ${marker.public}</p>
+                <div class="favourite-container">
+                  <form class="add-fav" method="POST" action="/markers/favourite/${marker.id}" hidden>
+                    <button type="submit">Favourite</button>
+                  </form>
+                  <form class="remove-fav" method="POST" action="/markers/favourite/${marker.id}/remove">
+                    <button type="submit">Unfavourite</button>
+                  </form>
+                </div>
+                <button class="edit-button" type="button">Edit</button>
+                <form method="POST" action="/markers/delete/${marker.id}">
+                  <button type="submit">Delete</button>
+                </form>
+              </div>
+              <div class="edit-content" hidden>
+                <form class="edit-marker" action="/markers/${marker.id}" method="POST">
+                  <label class="title-edit">Title</label>
+                  <input name="title" class="title-edit" value="${marker.title}">
+                  <label>Category</label>
+                  <input name="category" value="${marker.category}">
+                  <label>Description</label>
+                  <input name="description" value="${marker.description}">
+                  <label>rating</label>
+                  <input name="rating" value="${marker.rating}">
+                  <label>Thumbnail Photo URL</label>
+                  <input name="thumbnail_photo_url" type="file" value="${marker.thumbnail_photo_url}">
+                  <label>Public</label>
+                  <input name="public" value="${marker.public}">
+                  <button type="submit">Submit</button>
+                </form>
+              </div>
+            `);
+          } else {
+            infowindow.setContent(`
+              <div class="content">
+                <h1>${marker.title}</h1>
+                <p>Address: ${marker.address}</p>
+                <p>Category: ${marker.category}</p>
+                <p>${marker.description}</p>
+                <p>Rating: ${marker.rating}/5</p>
+                <img src=${marker.thumbnail_photo_url} width="300" height="250">
+                <p>Public: ${marker.public}</p>
+                <div class="favourite-container">
+                  <form class="add-fav" method="POST" action="/markers/favourite/${marker.id}" hidden>
+                    <button type="submit">Favourite</button>
+                  </form>
+                  <form class="remove-fav" method="POST" action="/markers/favourite/${marker.id}/remove">
+                    <button type="submit">Unfavourite</button>
+                  </form>
+                </div>
+              </div>
+            `);
+          }
+        }
       } else {
         infowindow.setContent(`
-        <div class="content">
-          <h1>${marker.title}</h1>
-          <p>Address: ${marker.address}</p>
-          <p>Category: ${marker.category}</p>
-          <p>${marker.description}</p>
-          <p>Rating: ${marker.rating}/5</p>
-          <img src=${marker.thumbnail_photo_url} width="300" height="250">
-          <p>Public: ${marker.public}</p>
-        </div>
+          <div class="content">
+            <h1>${marker.title}</h1>
+            <p>Address: ${marker.address}</p>
+            <p>Category: ${marker.category}</p>
+            <p>${marker.description}</p>
+            <p>Rating: ${marker.rating}/5</p>
+            <img src=${marker.thumbnail_photo_url} width="300" height="250">
+            <p>Public: ${marker.public}</p>
+          </div>
         `);
       }
       infowindow.open(map, newMarker);
@@ -114,6 +203,13 @@ const loadMarkers = (markers, owned, reset) => {
             .then(result => {console.log(result)})
             .catch(err => {console.log(err)});
         });
+
+        $('.favourite-container form :visible').on('submit', function() {
+          $( this ).toggle();
+        });
+        $('.favourite-container form :hidden').on('submit', function() {
+          $( this ).toggle();
+        });
       }, 300);
     });
 
@@ -130,15 +226,30 @@ const loadMarkers = (markers, owned, reset) => {
 const getMarkers = (category) => {
   $.get('/markers/public/category', {category: category})
     .then(publicMarkers => {
-      $.get('/markers/user')
+      $.get('/markers/user/category', {category: category})
         .then(userMarkers => {
           for (marker of publicMarkers) {
             if (userMarkers.includes(marker)) {
               publicMarkers.splice(publicMarkers.indexOf(marker), 1);
             }
           }
-          loadMarkers(publicMarkers, false, true);
-          loadMarkers(userMarkers, true, false);
+          $.get('/users/favourites')
+            .then((userParams) => {
+              let favArr;
+              if (userParams.loggedIn) {
+                favArr = userParams.favArr[0].favourites;
+              } else {
+                favArr = [];
+              }
+
+              if (category === 'favourites') {
+                loadMarkers(publicMarkers, true, true, favArr, userParams.loggedIn);
+              } else {
+                loadMarkers(publicMarkers, false, true, favArr, userParams.loggedIn);
+              }
+              loadMarkers(userMarkers, true, false, favArr, userParams.loggedIn);
+            })
+            .catch(err => {console.log(err)});
         })
         .catch(err => {console.log(err)});
 

@@ -16,7 +16,14 @@ const getMarkersByCategory = (category) => {
 
 const getPublicMarkersByCategory = (category) => {
   return db
-    .query(`SELECT DISTINCT * FROM markers JOIN users ON markers.user_id = users.id WHERE (CASE WHEN $1='all' THEN category = category WHEN $1 = 'favourites' THEN markers.id = ANY(users.favourites) ELSE category = $1 END) AND public=true;`, [category])
+    .query(`SELECT * FROM markers WHERE category=(CASE WHEN $1='all' THEN category ELSE $1 END) AND public=true;`, [category])
+    .then(result => {return Promise.resolve(result.rows)})
+    .catch(err => {console.log(err)});
+};
+
+const getPublicMarkersByFavourites = (user_id) => {
+  return db
+    .query(`SELECT markers.* FROM markers, users WHERE markers.id=ANY(users.favourites) AND users.id=$1;`, [user_id])
     .then(result => {return Promise.resolve(result.rows)})
     .catch(err => {console.log(err)});
 };
@@ -28,10 +35,17 @@ const getUserMarkers = (user_id) => {
     .catch(err => {console.log(err)});
 };
 
+const getUserMarkersByCategory = (userParams) => {
+  return db
+    .query(`SELECT * FROM markers WHERE user_id=$1 AND category=(CASE WHEN $2='all' THEN category ELSE $2 END);`, [userParams.user_id, userParams.category])
+    .then(result => {return Promise.resolve(result.rows)})
+    .catch(err => {console.log(err)});
+};
+
 const getFavouriteMarkersById = (userId) => {
   return db
     .query(`SELECT favourites FROM users WHERE id = $1;`, [userId])
-    .then(result => {return Promise.resolve(result.rows[0].favourites)})
+    .then(result => {return Promise.resolve(result.rows)})
     .catch(err => {console.log(err)});
 };
 
@@ -74,8 +88,10 @@ const editMarker = (marker, user_id) => {
 module.exports = {
   getMarkerById,
   getUserMarkers,
+  getUserMarkersByCategory,
   getMarkersByCategory,
   getPublicMarkersByCategory,
+  getPublicMarkersByFavourites,
   getFavouriteMarkersById,
   addMarker,
   addFavouriteMarker,

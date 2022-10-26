@@ -15,21 +15,40 @@ router.get('/category', (req, res) => {
 
 router.get('/public/category', (req, res) => {
   const category = req.query.category;
-  markersQueries.getPublicMarkersByCategory(category)
-    .then(markers => {
-      res.send(markers);
-    })
-    .catch(err => res.send(err));
+  if (category === 'favourites') {
+    markersQueries.getPublicMarkersByFavourites(req.session.userId)
+      .then(markers => {
+        res.send(markers);
+      })
+      .catch(err => console.log(err));
+  } else {
+    markersQueries.getPublicMarkersByCategory(category)
+      .then(markers => {
+        res.send(markers);
+      })
+      .catch(err => console.log(err));
+  }
 });
 
 router.get('/user', (req, res) => {
   const user_id = req.session.userId;
-  console.log(user_id);
   markersQueries.getUserMarkers(user_id)
     .then(markers => {
       res.send(markers);
     })
-    .catch(err => res.send(err));
+    .catch(err => console.log(err));
+});
+
+router.get('/user/category', (req, res) => {
+  const userParams = {
+    user_id: req.session.userId,
+    category: req.query.category
+  };
+  markersQueries.getUserMarkersByCategory(userParams)
+    .then(markers => {
+      res.send(markers);
+    })
+    .catch(err => console.log(err));
 });
 
 router.post('/', (req, res) => {
