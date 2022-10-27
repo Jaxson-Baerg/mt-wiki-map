@@ -9,16 +9,16 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
     let iconURL = '';
     switch(marker.category) { // Set image url for marker icon
       case 'accomodation':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/4118/4118234.png";
+        iconURL = "https://cdn-icons-png.flaticon.com/512/5241/5241729.png";
         break;
       case 'activity':
-        iconURL = "https://www.pngmart.com/files/21/Activities-PNG-Picture.png";
+        iconURL = "https://cdn-icons-png.flaticon.com/512/1668/1668531.png";
         break;
       case 'food':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/2771/2771401.png";
+        iconURL = "https://cdn-icons-png.flaticon.com/512/3075/3075977.png";
         break;
       case 'shopping':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/263/263142.png";
+        iconURL = "https://cdn-icons-png.flaticon.com/512/3081/3081648.png";
         break;
     }
 
