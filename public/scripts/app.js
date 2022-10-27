@@ -8,7 +8,8 @@ const initMap = () => {
 
   mapOptions = {
     zoom: 4,
-    center: canada
+    center: canada,
+    mapId: '4a98d4a67a95b928'
   }
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
 }

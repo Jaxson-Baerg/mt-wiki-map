@@ -12,12 +12,13 @@
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" type= "text/css" href="/styles/main.css" />
   <link rel="stylesheet" type="text/css" href="/styles/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/markers.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
   <script defer src="/scripts/markers.js"></script>
   <script defer src="/scripts/users.js"></script>
-  <script defer src=[?- `https://maps.googleapis.com/maps/api/js?key=${apiKey}&region=CA&language=en&callback=initMap&v=weekly` ?] >
+  <script defer src=[?- `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=beta&libraries=marker&callback=initMap` ?] >
   </script>
   <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
   <script defer src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>

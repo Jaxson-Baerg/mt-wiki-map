@@ -26,6 +26,9 @@
           <span>Category: [?= marker.category ?]</span>
           <br>
           <span>Address: [?= marker.address ?]</span>
+          <form method="POST" action="/markers/delete/[?- marker.id ?]">
+            <button type="submit">Delete</button>
+          </form>
         </li>
       [? }); ?]
     </ul>
@@ -38,6 +41,9 @@
           <span>Category: [?= favourite.category ?]</span>
           <br>
           <span>Address: [?= favourite.address ?]</span>
+          <form class="remove-fav" method="POST" action="/markers/favourite/[?- favourite.id ?]/remove">
+            <button type="submit">Unfavourite</button>
+          </form>
         </li>
       [? }); ?]
     </ul>
