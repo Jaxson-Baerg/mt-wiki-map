@@ -6,21 +6,7 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
   }
 
   markers.forEach(marker => { // Place each marker at given coords with an animation and title
-    let iconURL = '';
-    switch(marker.category) { // Set image url for marker icon
-      case 'accomodation':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/5241/5241729.png";
-        break;
-      case 'activity':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/1668/1668531.png";
-        break;
-      case 'food':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/3075/3075977.png";
-        break;
-      case 'shopping':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/3081/3081648.png";
-        break;
-    }
+    let iconURL = iconsObj[marker.category];
 
     const image = { // Set image for marker icon
       url: iconURL,
