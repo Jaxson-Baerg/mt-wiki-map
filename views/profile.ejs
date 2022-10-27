@@ -25,7 +25,8 @@
           <span>[?= marker.address ?]</span>
           <br>
           <span>Category: [?= marker.category ?]</span>
-
+          <br>
+          <span>Photo: <img src="[?= marker.thumbnail_photo_url ?]" height="50" width="50" /></span>
           <form method="POST" action="/markers/delete/[?- marker.id ?]">
             <button class="button" type="submit">Delete</button>
           </form>
@@ -40,6 +41,8 @@
           <span>[?= favourite.address ?]</span>
           <br>
           <span>Category: [?= favourite.category ?]</span>
+          <br>
+          <span>Photo: <img src="[?= favourite.thumbnail_photo_url ?]" height="50" width="50" /></span>
           <form class="remove-fav" method="POST" action="/markers/favourite/[?- favourite.id ?]/remove">
             <button class="button" type="submit">Unfavourite</button>
           </form>

@@ -227,6 +227,8 @@ form .infoField {
 
 .display {
   text-align: center;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .photo {
