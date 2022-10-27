@@ -26,7 +26,15 @@
 
 <body>
   [?- include('partials/_header'); ?]
-    <!-- <h3>My Google Maps Demo</h3> -->
+    <h2 class="indexSelector"><label for="category">Sort By:</label>
+      <select class="category-selector" name="category">
+        <option value="all">All</option>
+        <option value="food">Food</option>
+        <option value="activity">Activity</option>
+        <option value="accomodation">Accomodation</option>
+        <option value="shopping">Shopping</option>
+        <option value="favourites">Favourites</option>
+      </select></h2>
     <!--The div element for the map -->
     <div id="map"></div>
 

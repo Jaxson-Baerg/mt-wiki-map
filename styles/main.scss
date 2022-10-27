@@ -269,9 +269,16 @@ form .infoField {
   justify-content: left;
   margin-left: 20px;
 }
+//Index Page
+.indexSelector {
+  display: flex;
+  margin-left: 25px;
+}
 // Map Size
 #map {
   height: 925px;
   /* The height is was 1000px */
   width: 100%;
+  border-style: solid;
+  border-width: thick;
 }
