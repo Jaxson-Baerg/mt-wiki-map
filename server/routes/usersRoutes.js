@@ -76,9 +76,10 @@ router.get('/profile', (req, res) => {
               let favouritesArr = [];
               favArrConvert(favourites, favouritesArr) // Convert array of marker ids to an array of marker objects
                 .then((finalFavArr) => {
-                  for (const m of finalFavArr) {
-                    if (!m) {
-                      finalFavArr.splice(finalFavArr.indexOf(m), 1);
+                  for (let i = 0; i < finalFavArr.length; i++) {
+                    if (!finalFavArr[i]) {
+                      finalFavArr.splice(i, 1);
+                      i--;
                     }
                   }
                   const templateVars = {email, markers, finalFavArr, user: userId}
