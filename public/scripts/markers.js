@@ -7,33 +7,62 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
     markerArr.length = 0;
   }
 
+  const highlight = markerView => {
+    markerView.content.classList.add("highlight");
+    markerView.element.style.zIndex = 1;
+  }
+
+  const unhighlight = markerView => {
+    markerView.content.classList.remove("highlight");
+    markerView.element.style.zIndex = "";
+  }
+
   // Place each marker at given coords with an animation and title
   markers.forEach(marker => {
 
-    let iconURL = '';
+    let glyphImg = '';
     switch(marker.category) {
       case 'accomodation':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/4118/4118234.png";
+        glyphImg = "https://cdn-icons-png.flaticon.com/512/4118/4118234.png";
         break;
       case 'activity':
-        iconURL = "https://www.pngmart.com/files/21/Activities-PNG-Picture.png";
+        glyphImg = "https://www.pngmart.com/files/21/Activities-PNG-Picture.png";
         break;
       case 'food':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/2771/2771401.png";
+        glyphImg = "https://cdn-icons-png.flaticon.com/512/2771/2771401.png";
         break;
       case 'shopping':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/263/263142.png";
+        glyphImg = "https://cdn-icons-png.flaticon.com/512/263/263142.png";
         break;
     }
 
-    var image = {
-      url: iconURL,
-      scaledSize : new google.maps.Size(40, 40),
-    };
+    const newMarkerPinView = new google.maps.marker.PinView({
+      glyph: glyphImg,
+    });
 
     const newMarker = new google.maps.marker.AdvancedMarkerView({
       position: { lat: marker.latitude, lng: marker.longitude },
-      map: map
+      map: map,
+      title: marker.title,
+      content: newMarkerPinView.element,
+    });
+
+    const element = newMarker.element;
+
+    ["focus", "pointerenter"].forEach((event) => {
+      element.addEventListener(event, () => {
+        highlight(newMarker);
+      });
+    });
+
+    ["blur", "pointerleave"].forEach((event) => {
+      element.addEventListener(event, () => {
+        unhighlight(newMarker);
+      });
+    });
+
+    newMarker.addListener("click", (event) => {
+      highlight(newMarker);
     });
 
     // Add info window to each marker
