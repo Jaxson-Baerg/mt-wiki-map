@@ -1,3 +1,4 @@
+/* --- Initialize helper files --- */
 const db = require('../connection').db;
 
 const getMarkerById = (marker_id) => {
@@ -61,14 +62,14 @@ const addFavouriteMarker = (userId, markerId) => {
     .query(`UPDATE users SET favourites = array_append(favourites, $1) WHERE id = $2;`, [markerId, userId])
     .then(result => {return Promise.resolve(result.rows)})
     .catch(err => {console.log(err)});
-}
+};
 
 const removeFavouriteMarker = (userId, markerId) => {
   return db
     .query(`UPDATE users SET favourites = array_remove(favourites, $1) WHERE id = $2;`, [markerId, userId])
     .then(result => {return Promise.resolve(result.rows)})
     .catch(err => {console.log(err)});
-}
+};
 
 const deleteMarker = (id) => {
   return db
@@ -78,7 +79,6 @@ const deleteMarker = (id) => {
 };
 
 const editMarker = (marker, user_id) => {
-  console.log(marker);
   return db
     .query(`UPDATE markers SET thumbnail_photo_url=$1, rating=$2, title=$3, description=$4, public=$5, category=$6 WHERE id=$7 AND user_id=$8`, [marker.thumbnail_photo_url, marker.rating, marker.title, marker.description, marker.public, marker.category, marker.id, user_id])
     .then(result => {return Promise.resolve(result.rows)})

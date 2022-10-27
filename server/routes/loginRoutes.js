@@ -1,9 +1,10 @@
+/* --- Initialize helper files --- */
 const express = require('express');
 const bcrypt = require('bcrypt');
 const usersQueries = require('../db/queries/usersQueries');
-const router  = express.Router();
+const router = express.Router();
 
-// login password validation using bcrypt
+// Login password validation using bcrypt
 const login = (email, password) => {
   return usersQueries.getUserWithEmail(email)
     .then(user => {
@@ -17,31 +18,28 @@ const login = (email, password) => {
 
 // GET for login
 router.get('/', (req, res) => {
-  const userId = req.session["userId"]
+  const userId = req.session["userId"];
   if (userId) {
     return res.redirect("../");
   }
   const templateVar = {
     user: userId
-  }
-   return res.render('login',templateVar);
+  };
+  return res.render('login',templateVar);
 });
 
 // POST for login
 router.post('/', (req, res) => {
   const {email, password} = req.body;
-  console.log("req.body",req.body);
   login(email, password)
     .then(user => {
       if (!user) {
-        res.send({error: "error, incorrect email or password"});
-        return;
+        console.log('Incorrect email or password');
+        res.redirect('./login');
+      } else {
+        req.session["userId"] = user.id;
+        res.redirect('../');
       }
-      console.log(user);
-      req.session["userId"] = user.id;
-      // res.send({user: {email: user.email, id: user.id}});
-      res.redirect('../');
-      return;
     })
     .catch(err => res.send(err));
 });
