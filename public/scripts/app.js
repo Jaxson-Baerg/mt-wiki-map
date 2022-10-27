@@ -20,14 +20,22 @@ const initMap = () => {
   }
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-  const legend = document.getElementById("legend");
+  /* --- Allow user to click on the map to place a marker there --- */
+  const createMarker = (latLng, map) => {
+    const latLngObj = JSON.stringify(latLng.toJSON(), null, 2);
+    $.get('/users/create/click', JSON.parse(latLngObj))
+      .then(response => {window.location = `/users/create?address=${response}`}) // Route page over to the create marker page with the address to autofill
+      .catch(err => {console.log(err)});
+  };
+  map.addListener("click", e => createMarker(e.latLng, map));
 
+  /* --- Legend on map api --- */
+  const legend = document.getElementById("legend");
   for (const category in iconsObj) {
     const div = document.createElement("div");
     div.innerHTML = `<img src="${iconsObj[category]}"> ${category}`;
     legend.appendChild(div);
   }
-
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 }
 
