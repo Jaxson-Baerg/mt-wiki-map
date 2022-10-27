@@ -1,3 +1,4 @@
+/* --- Initialize helper files --- */
 const db = require('../connection').db;
 
 const getUserWithEmail = (email) => {

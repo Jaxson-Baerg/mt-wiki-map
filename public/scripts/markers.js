@@ -3,66 +3,40 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
 
   if (reset) {
     // Clear all pre-existing markers from map
-    markerArr.forEach(marker => marker.map = null);
+    markerArr.forEach(marker => marker.setMap(null));
     markerArr.length = 0;
-  }
-
-  const highlight = markerView => {
-    markerView.content.classList.add("highlight");
-    markerView.element.style.zIndex = 1;
-  }
-
-  const unhighlight = markerView => {
-    markerView.content.classList.remove("highlight");
-    markerView.element.style.zIndex = "";
   }
 
   // Place each marker at given coords with an animation and title
   markers.forEach(marker => {
 
-    let glyphImg = '';
+    let iconURL = '';
     switch(marker.category) {
       case 'accomodation':
-        glyphImg = "https://cdn-icons-png.flaticon.com/512/4118/4118234.png";
+        iconURL = "https://cdn-icons-png.flaticon.com/512/4118/4118234.png";
         break;
       case 'activity':
-        glyphImg = "https://www.pngmart.com/files/21/Activities-PNG-Picture.png";
+        iconURL = "https://www.pngmart.com/files/21/Activities-PNG-Picture.png";
         break;
       case 'food':
-        glyphImg = "https://cdn-icons-png.flaticon.com/512/2771/2771401.png";
+        iconURL = "https://cdn-icons-png.flaticon.com/512/2771/2771401.png";
         break;
       case 'shopping':
-        glyphImg = "https://cdn-icons-png.flaticon.com/512/263/263142.png";
+        iconURL = "https://cdn-icons-png.flaticon.com/512/263/263142.png";
         break;
     }
 
-    const newMarkerPinView = new google.maps.marker.PinView({
-      glyph: glyphImg,
-    });
+    var image = {
+      url: iconURL,
+      scaledSize : new google.maps.Size(40, 40),
+    };
 
-    const newMarker = new google.maps.marker.AdvancedMarkerView({
+    const newMarker = new google.maps.Marker({
       position: { lat: marker.latitude, lng: marker.longitude },
       map: map,
+      animation: google.maps.Animation.DROP,
       title: marker.title,
-      content: newMarkerPinView.element,
-    });
-
-    const element = newMarker.element;
-
-    ["focus", "pointerenter"].forEach((event) => {
-      element.addEventListener(event, () => {
-        highlight(newMarker);
-      });
-    });
-
-    ["blur", "pointerleave"].forEach((event) => {
-      element.addEventListener(event, () => {
-        unhighlight(newMarker);
-      });
-    });
-
-    newMarker.addListener("click", (event) => {
-      highlight(newMarker);
+      icon: image
     });
 
     // Add info window to each marker
