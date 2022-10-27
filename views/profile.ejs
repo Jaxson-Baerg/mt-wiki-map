@@ -8,10 +8,11 @@
   <link rel="icon" href="/maps-icon-16.png">
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" type= "text/css" href="/styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/main.css" />
   <link rel="stylesheet" type="text/css" href="/styles/layout.css" />
   <title>Profile</title>
 </head>
+
 <body>
   [?- include('partials/_header'); ?]
   <h2 class="userProfile">User Profile for: [?= email ?]</h2>
@@ -19,27 +20,28 @@
   <div class="all-markers">
     <h2 class="profileCategory">All the markers you've made:</h2>
       [? markers.forEach(marker => { ?]
-          <span><img src="[?= marker.thumbnail_photo_url ?]" height="150" width="150" /></span>
-          <br>
-          <span>Category: [?= marker.category ?]</span>
-          <br>
-          <span>[?= marker.title ?] - [?= marker.address ?] </span>
-          <!-- <span>[?= marker.address ?]</span> -->
-          <form method="POST" action="/markers/delete/[?- marker.id ?]">
-            <button class="profileButton" type="submit">Delete</button>
-          </form>
+      <span><img src="[?= marker.thumbnail_photo_url ?]" height="200" width="200" class="profileImage" /></span>
+      <br>
+      <span>Category: [?= marker.category ?]</span>
+      <br>
+      <span>[?= marker.title ?] - [?= marker.address ?] </span>
+      <!-- <span>[?= marker.address ?]</span> -->
+      <form method="POST" action="/markers/delete/[?- marker.id ?]">
+        <button class="profileButton" type="submit">Delete</button>
+      </form>
       [? }); ?]
     <h2 class="profileCategory">All your favourite markers:</h2>
-      [? finalFavArr.forEach(favourite => { ?]
-          <span><img src="[?= favourite.thumbnail_photo_url ?]" height="150" width="150" /></span>
-          <br>
-          <span>Category: [?= favourite.category ?]</span>
-          <br>
-          <span>[?= favourite.title ?] - [?= favourite.address ?] </span>
-          <form class="remove-fav" method="POST" action="/markers/favourite/[?- favourite.id ?]/remove">
-            <button class="profileButton" type="submit">Unfavourite</button>
-          </form>
-      [? }); ?]
+    [? finalFavArr.forEach(favourite => { ?]
+    <span><img src="[?= favourite.thumbnail_photo_url ?]" height="200" width="200" class="profileImage" /></span>
+    <br>
+    <span>Category: [?= favourite.category ?]</span>
+    <br>
+    <span>[?= favourite.title ?] - [?= favourite.address ?] </span>
+    <form class="remove-fav" method="POST" action="/markers/favourite/[?- favourite.id ?]/remove">
+      <button class="profileButton" type="submit">Unfavourite</button>
+    </form>
+    [? }); ?]
   </div>
 </body>
+
 </html>

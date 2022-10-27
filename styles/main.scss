@@ -203,9 +203,9 @@ form .infoField {
 
 // Create Marker Page
 .infoField textarea {
-  width: 100%;
+  width: 312px;
   padding: 0 5px;
-  height: 40px;
+  height: 33px;
   border: none;
   background: none;
   outline: none;
@@ -300,6 +300,10 @@ form .infoField {
   }
 }
 
+.profileImage {
+  border-style: groove;
+}
+
 //Index Page
 .indexSelector {
   display: flex;
@@ -313,4 +317,11 @@ form .infoField {
   width: 100%;
   border-style: solid;
   border-width: thick;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
