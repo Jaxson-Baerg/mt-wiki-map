@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/maps-icon-16.png">
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" type= "text/css" href="/styles/main.css" />
@@ -13,23 +14,35 @@
 </head>
 <body>
   [?- include('partials/_header'); ?]
-  <h2>User Profile for: [?= email ?]</h2>
+  <h2 class="userProfile">User Profile for: [?= email ?]</h2>
+  <h1 class="profileTitle">Profile</h1>
   <div class="all-markers">
-    <h4>All the markers you've made:</h4>
+    <h2 class="markerByUser">All the markers you've made:</h2>
     <ul>
       [? markers.forEach(marker => { ?]
         <li>
-          <span>Coordinates: [?= marker.latitude ?], [?= marker.longitude ?]</span>
-          <span>Address: [?= marker.address ?]</span>
+          <span>[?= marker.title ?] - </span>
+          <span>[?= marker.address ?]</span>
+          <br>
+          <span>Category: [?= marker.category ?]</span>
+
+          <form method="POST" action="/markers/delete/[?- marker.id ?]">
+            <button class="button" type="submit">Delete</button>
+          </form>
         </li>
       [? }); ?]
     </ul>
-    <h4>All your favourite markers:</h4>
+    <h2 class="favouriteMarker">All your favourite markers:</h2>
     <ul>
       [? finalFavArr.forEach(favourite => { ?]
         <li>
-          <span>Coordinates: [?= favourite.latitude ?], [?= favourite.longitude ?]</span>
-          <span>Address: [?= favourite.address ?]</span>
+          <span>[?= favourite.title ?] - </span>
+          <span>[?= favourite.address ?]</span>
+          <br>
+          <span>Category: [?= favourite.category ?]</span>
+          <form class="remove-fav" method="POST" action="/markers/favourite/[?- favourite.id ?]/remove">
+            <button class="button" type="submit">Unfavourite</button>
+          </form>
         </li>
       [? }); ?]
     </ul>
