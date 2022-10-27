@@ -59,9 +59,9 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
                   <label>Description</label>
                   <input name="description" value="${marker.description}">
                   <label>rating</label>
-                  <input name="rating" value="${marker.rating}">
+                  <input name="rating" type="number" min="0" max="5" value="${marker.rating}">
                   <label>Thumbnail Photo URL</label>
-                  <input name="thumbnail_photo_url" type="file" value="${marker.thumbnail_photo_url}">
+                  <input name="thumbnail_photo_url" value="${marker.thumbnail_photo_url}">
                   <label>Public</label>
                   <input name="public" value="${marker.public}">
                   <button type="submit">Submit</button>
@@ -122,9 +122,9 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
                   <label>Description</label>
                   <input name="description" value="${marker.description}">
                   <label>rating</label>
-                  <input name="rating" value="${marker.rating}">
+                  <input name="rating" type="number" min="0" max="5" value="${marker.rating}">
                   <label>Thumbnail Photo URL</label>
-                  <input name="thumbnail_photo_url" type="file" value="${marker.thumbnail_photo_url}">
+                  <input name="thumbnail_photo_url" value="${marker.thumbnail_photo_url}">
                   <label>Public</label>
                   <input name="public" value="${marker.public}">
                   <button type="submit">Submit</button>
