@@ -1,48 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" type= "text/css" href="/styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/main.css" />
   <link rel="stylesheet" type="text/css" href="/styles/layout.css" />
   <title>Create Markers</title>
 </head>
-<body>
+
+<body class="body">
   [?- include('partials/_header'); ?]
-  <form action="/markers" method="POST">
-    <label>Title</label>
-      <input name="title" type="text" />
-      <br>
+  <div class="login">
+    <h1>Create Marker</h1>
+    <form action="/markers" method="POST">
+      <div class="infoField">
+        <input name="title" type="text" required />
+        <span></span>
+        <label>Title</label>
+      </div>
+      <div class="infoField">
+        <input name="address" type="text" required />
+        <span></span>
+        <label>Address</label>
+      </div>
+      <div class="infoField">
+        <input name="rating" type="number" min="0" max="5" required />
+        <span></span>
+        <label>Rating</label>
+      </div>
+      <div class="infoField">
+        <textarea name="description" required></textarea>
+        <span></span>
+        <label class="hello">Description</label>
+        </div>
+        <div class="category">
       <label>Catergory</label>
       <select name="category">
-      <option value="food">Food</option>
-      <option value="activity">Activity</option>
-      <option value="accomodation">Accomodation</option>
-      <option value="shopping">Shopping</option>
-    </select>
+        <option value="food">Food</option>
+        <option value="activity">Activity</option>
+        <option value="accomodation">Accomodation</option>
+        <option value="shopping">Shopping</option>
+      </select>
+      </div>
       <br>
-      <label>Rating</label>
-      <input name="rating" type="number" min="0" max="5"  />
-      <br>
-      <label>Photo</label>
-      <input name="thumbnail_photo_url" type="file" />
-      <br>
-      <label>Address</label>
-      <input name="address" type="text" required />
-      <br>
+      <div class ="display">
       <label>Public</label>
       <input name="display" type="radio" value="true" />
       <label>Private</label>
       <input name="display" type="radio" value="false" />
+      <span></span>
+      </div>
       <br>
-      <label>Description</label>
-      <textarea name="description"></textarea>
-      <br>
-      <button type="submit">Submit</button>
-  </form>
-
+      <div class="photo">
+      <label>Photo</label>
+      <input name="thumbnail_photo_url" type="file" />
+      </div>
+      <button class="submitButton" id= "createMarkerButton" type="submit">Submit</button>
+      <div></div>
+    </form>
+  </div>
 </body>
+
 </html>

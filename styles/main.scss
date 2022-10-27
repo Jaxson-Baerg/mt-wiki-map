@@ -11,23 +11,6 @@ $-uber: #2fbf77;
 body {
   background-color: #f7f7f7;
 }
-// body {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   min-height: 100vh;
-//   background: rgb(163, 208, 219);
-//   background: linear-gradient(
-//     227deg,
-//     rgba(163, 208, 219, 1) 0%,
-//     rgba(163, 176, 219, 1) 20%,
-//     rgba(163, 173, 219, 1) 34%,
-//     rgba(163, 219, 208, 1) 59%,
-//     rgba(163, 208, 219, 1) 74%,
-//     rgba(163, 208, 219, 1) 100%
-//   );
-// }
 
 // NavBar
 .navbar {
@@ -86,9 +69,16 @@ body {
   }
 }
 
+.header-button {
+  margin-top: 20px;
+}
+
+.navbar-nav {
+  margin-top: 20px;
+}
 //Login & Register Page
 
-.loginbody {
+.body {
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -152,14 +142,14 @@ form .infoField {
   transition: .5s;
 }
 
-.infoField input:focus ~ label,
-.infoField input:valid ~ label {
+.infoField input:focus~label,
+.infoField input:valid~label {
   top: -5px;
   color: $-uber;
 }
 
-.infoField input:focus ~ span::before,
-.infoField input:focus ~ span::before {
+.infoField input:focus~span::before,
+.infoField input:focus~span::before {
   width: 100%;
 }
 
@@ -173,7 +163,7 @@ form .infoField {
   text-decoration: underline;
 }
 
-.loginButton {
+.submitButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -187,6 +177,7 @@ form .infoField {
   font-weight: 700;
   cursor: pointer;
   outline: none;
+
   &:hover {
     background-color: #fb4b4e;
     transition: all 0.3s ease;
@@ -194,28 +185,75 @@ form .infoField {
 }
 
 
-.signUp {
-  display: flex;
+.page-link {
   margin: 30px 0;
   text-align: center;
-  align-items: center;
-  justify-content: center;
   color: #666666;
 }
 
-.signUp a {
+.page-link a {
   color: $-uber;
   text-decoration: none;
 }
 
-.signUp a:hover {
+.page-link a:hover {
   text-decoration: underline;
 }
 
-/* Set the size of the div element that contains the map */
+// Create Marker Page
+.infoField textarea {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.infoField textarea:focus~label,
+.infoField textarea:valid~label {
+  top: -5px;
+  color: $-uber;
+}
+
+.infoField textarea:focus~span::before,
+.infoField textarea:focus~span::before {
+  width: 100%;
+}
+
+.category {
+  text-align: center;
+}
+
+.display {
+  text-align: center;
+}
+
+.photo {
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#createMarkerButton {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+//Profile Page
+.userProfile {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+.profileTitle {
+  display: flex;
+  justify-content: center;
+}
+// Map Size
 #map {
-  height: 700px;
+  height: 925px;
   /* The height is was 1000px */
   width: 100%;
-  /* The width is the width of the web page */
 }

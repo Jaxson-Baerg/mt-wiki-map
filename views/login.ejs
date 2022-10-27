@@ -12,23 +12,23 @@
   <title>Login</title>
 </head>
 
-<body class="loginbody">
+<body class="body">
   [?- include('partials/_header'); ?]
   <div class="login">
     <h1>Login</h1>
-    <form action="/login" method="post">
+    <form action="/login" method="POST">
       <div class="infoField">
-        <input name="email" type="email" />
+        <input name="email" type="email" required/>
         <span></span>
         <label>Email</label>
       </div>
       <div class="infoField">
-        <input name="password" type="password" />
+        <input name="password" type="password" required />
         <span></span>
         <label>Password</label>
       </div>
-      <button class="loginButton" type="submit">Login</button>
-      <div class="SignUp">
+      <button class="submitButton" type="submit">Login</button>
+      <div class="page-link">
         Not a member? <a href="/register">SignUp</a>
       </div>
     </form>

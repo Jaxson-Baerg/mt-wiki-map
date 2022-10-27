@@ -13,13 +13,15 @@
 </head>
 <body>
   [?- include('partials/_header'); ?]
-  <h2>User Profile for: [?= email ?]</h2>
+  <h2 class="userProfile">User Profile for: [?= email ?]</h2>
+  <h1 class="profileTitle">Profile</h1>
   <div class="all-markers">
     <h4>All the markers you've made:</h4>
     <ul>
       [? markers.forEach(marker => { ?]
         <li>
-          <span>Coordinates: [?= marker.latitude ?], [?= marker.longitude ?]</span>
+          <span>Title: [?= marker.title ?], </span>
+          <span>Category: [?= marker.category ?],</span>
           <span>Address: [?= marker.address ?]</span>
         </li>
       [? }); ?]
@@ -28,7 +30,8 @@
     <ul>
       [? finalFavArr.forEach(favourite => { ?]
         <li>
-          <span>Coordinates: [?= favourite.latitude ?], [?= favourite.longitude ?]</span>
+          <span>Title: [?= favourite.title ?], </span>
+          <span>Category: [?= favourite.category ?],</span>
           <span>Address: [?= favourite.address ?]</span>
         </li>
       [? }); ?]
