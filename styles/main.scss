@@ -274,7 +274,6 @@ form .infoField {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .profileButton {
@@ -302,6 +301,11 @@ form .infoField {
 
 .profileImage {
   border-style: groove;
+}
+
+.profileImage:hover {
+  background: transparent;
+  box-shadow: 5px 15px 30px;
 }
 
 //Index Page

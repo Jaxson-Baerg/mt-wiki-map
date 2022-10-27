@@ -19,17 +19,16 @@
   <h1 class="profileTitle">Profile</h1>
   <div class="all-markers">
     <h2 class="profileCategory">All the markers you've made:</h2>
-      [? markers.forEach(marker => { ?]
-      <span><img src="[?= marker.thumbnail_photo_url ?]" height="200" width="200" class="profileImage" /></span>
-      <br>
-      <span>Category: [?= marker.category ?]</span>
-      <br>
-      <span>[?= marker.title ?] - [?= marker.address ?] </span>
-      <!-- <span>[?= marker.address ?]</span> -->
-      <form method="POST" action="/markers/delete/[?- marker.id ?]">
-        <button class="profileButton" type="submit">Delete</button>
-      </form>
-      [? }); ?]
+    [? markers.forEach(marker => { ?]
+    <span><img src="[?= marker.thumbnail_photo_url ?]" height="200" width="200" class="profileImage" /></span>
+    <br>
+    <span>Category: [?= marker.category ?]</span>
+    <br>
+    <span>[?= marker.title ?] - [?= marker.address ?] </span>
+    <form method="POST" action="/markers/delete/[?- marker.id ?]">
+      <button class="profileButton" type="submit">Delete</button>
+    </form>
+    [? }); ?]
     <h2 class="profileCategory">All your favourite markers:</h2>
     [? finalFavArr.forEach(favourite => { ?]
     <span><img src="[?= favourite.thumbnail_photo_url ?]" height="200" width="200" class="profileImage" /></span>
