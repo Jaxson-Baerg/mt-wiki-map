@@ -24,7 +24,11 @@
         <label>Title</label>
       </div>
       <div class="infoField">
-        <input name="address" type="text" required />
+        [? if (address) { ?]
+          <input name="address" type="text" value="[?= address ?]" required />
+        [? } else { ?]
+          <input name="address" type="text" required />
+        [? } ?]
         <span></span>
         <label>Address</label>
       </div>

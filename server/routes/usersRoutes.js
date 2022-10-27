@@ -2,6 +2,7 @@
 const express = require('express');
 const usersQueries = require('../db/queries/usersQueries');
 const markersQueries = require('../db/queries/markersQueries');
+const geoCode = require('../map-api/geocode.js');
 const router = express.Router();
 
 /* --- Route to ./users to receive all users from database --- */
@@ -19,16 +20,33 @@ router.get('/logout', (req, res) => {
   res.redirect('../');
 });
 
-/* --- Route to ./users/create to register a new user and insert it into the database --- */
+/* --- Route to ./users/create to create a new marker and insert it into the database --- */
 router.get('/create', (req, res) => {
   const userId = req.session["userId"]
   if (!userId) {
     return res.redirect("../login");
   }
-  const templateVar = {
-    user: req.session["userId"]
+  let address;
+  if (req.query.address){
+    address = req.query.address;
+  } else {
+    address = null;
   }
+  const templateVar = {
+    user: req.session["userId"],
+    address
+  };
+  console.log(templateVar.address);
   res.render('createMarkers', templateVar);
+});
+
+/* --- Route to ./users/create/click to change lat and lng into a human readable address --- */
+router.get('/create/click', (req, res) => {
+  geoCode.latLngToAddress(req.query)
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {console.log(err)});
 });
 
 /* --- Route to ./users/favourites to get the favourites array from a user --- */
