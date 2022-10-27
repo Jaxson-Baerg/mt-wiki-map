@@ -21,6 +21,9 @@
         <li>
           <span>Coordinates: [?= marker.latitude ?], [?= marker.longitude ?]</span>
           <span>Address: [?= marker.address ?]</span>
+          <form method="POST" action="/markers/delete/[?- marker.id ?]">
+            <button type="submit">Delete</button>
+          </form>
         </li>
       [? }); ?]
     </ul>
@@ -30,6 +33,9 @@
         <li>
           <span>Coordinates: [?= favourite.latitude ?], [?= favourite.longitude ?]</span>
           <span>Address: [?= favourite.address ?]</span>
+          <form class="remove-fav" method="POST" action="/markers/favourite/[?- favourite.id ?]/remove">
+            <button type="submit">Unfavourite</button>
+          </form>
         </li>
       [? }); ?]
     </ul>
