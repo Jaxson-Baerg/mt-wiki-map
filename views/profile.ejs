@@ -17,38 +17,29 @@
   <h2 class="userProfile">User Profile for: [?= email ?]</h2>
   <h1 class="profileTitle">Profile</h1>
   <div class="all-markers">
-    <h2 class="markerByUser">All the markers you've made:</h2>
-    <ul>
+    <h2 class="profileCategory">All the markers you've made:</h2>
       [? markers.forEach(marker => { ?]
-        <li>
-          <span>[?= marker.title ?] - </span>
-          <span>[?= marker.address ?]</span>
+          <span><img src="[?= marker.thumbnail_photo_url ?]" height="150" width="150" /></span>
           <br>
           <span>Category: [?= marker.category ?]</span>
           <br>
-          <span>Photo: <img src="[?= marker.thumbnail_photo_url ?]" height="50" width="50" /></span>
+          <span>[?= marker.title ?] - [?= marker.address ?] </span>
+          <!-- <span>[?= marker.address ?]</span> -->
           <form method="POST" action="/markers/delete/[?- marker.id ?]">
-            <button class="button" type="submit">Delete</button>
+            <button class="profileButton" type="submit">Delete</button>
           </form>
-        </li>
       [? }); ?]
-    </ul>
-    <h2 class="favouriteMarker">All your favourite markers:</h2>
-    <ul>
+    <h2 class="profileCategory">All your favourite markers:</h2>
       [? finalFavArr.forEach(favourite => { ?]
-        <li>
-          <span>[?= favourite.title ?] - </span>
-          <span>[?= favourite.address ?]</span>
+          <span><img src="[?= favourite.thumbnail_photo_url ?]" height="150" width="150" /></span>
           <br>
           <span>Category: [?= favourite.category ?]</span>
           <br>
-          <span>Photo: <img src="[?= favourite.thumbnail_photo_url ?]" height="50" width="50" /></span>
+          <span>[?= favourite.title ?] - [?= favourite.address ?] </span>
           <form class="remove-fav" method="POST" action="/markers/favourite/[?- favourite.id ?]/remove">
-            <button class="button" type="submit">Unfavourite</button>
+            <button class="profileButton" type="submit">Unfavourite</button>
           </form>
-        </li>
       [? }); ?]
-    </ul>
   </div>
 </body>
 </html>
