@@ -232,8 +232,13 @@ form .infoField {
 .photo {
   text-align: left;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+}
+
+.photoBox {
+  display: flex;
+  justify-content: end;
 }
 
 #createMarkerButton {
@@ -250,6 +255,16 @@ form .infoField {
 .profileTitle {
   display: flex;
   justify-content: center;
+}
+.markerByUser {
+  display: flex;
+  justify-content: left;
+  margin-left: 20px;
+}
+.favouriteMarker {
+  display: flex;
+  justify-content: left;
+  margin-left: 20px;
 }
 // Map Size
 #map {

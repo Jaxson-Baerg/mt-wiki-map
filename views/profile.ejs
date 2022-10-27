@@ -17,22 +17,26 @@
   <h2 class="userProfile">User Profile for: [?= email ?]</h2>
   <h1 class="profileTitle">Profile</h1>
   <div class="all-markers">
-    <h4>All the markers you've made:</h4>
+    <h2 class="markerByUser">All the markers you've made:</h2>
     <ul>
       [? markers.forEach(marker => { ?]
         <li>
-          <span>Title: [?= marker.title ?], </span>
-          <span>Category: [?= marker.category ?],</span>
+          <span>Title: [?= marker.title ?] </span>
+          <br>
+          <span>Category: [?= marker.category ?]</span>
+          <br>
           <span>Address: [?= marker.address ?]</span>
         </li>
       [? }); ?]
     </ul>
-    <h4>All your favourite markers:</h4>
+    <h2 class="favouriteMarker">All your favourite markers:</h2>
     <ul>
       [? finalFavArr.forEach(favourite => { ?]
         <li>
-          <span>Title: [?= favourite.title ?], </span>
-          <span>Category: [?= favourite.category ?],</span>
+          <span>Title: [?= favourite.title ?]</span>
+          <br>
+          <span>Category: [?= favourite.category ?]</span>
+          <br>
           <span>Address: [?= favourite.address ?]</span>
         </li>
       [? }); ?]
