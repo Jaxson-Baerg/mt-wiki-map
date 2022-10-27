@@ -1,37 +1,33 @@
-/// paste loadmarkers
+/* --- Function to load all passed markers onto the map api --- */
 const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
-
-  if (reset) {
-    // Clear all pre-existing markers from map
+  if (reset) { // Clear all pre-existing markers from map
     markerArr.forEach(marker => marker.setMap(null));
     markerArr.length = 0;
   }
 
-  // Place each marker at given coords with an animation and title
-  markers.forEach(marker => {
-
+  markers.forEach(marker => { // Place each marker at given coords with an animation and title
     let iconURL = '';
-    switch(marker.category) {
+    switch(marker.category) { // Set image url for marker icon
       case 'accomodation':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/5241/5241729.png";
+        iconURL = "https://cdn-icons-png.flaticon.com/512/4118/4118234.png";
         break;
       case 'activity':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/1668/1668531.png";
+        iconURL = "https://www.pngmart.com/files/21/Activities-PNG-Picture.png";
         break;
       case 'food':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/3075/3075977.png";
+        iconURL = "https://cdn-icons-png.flaticon.com/512/2771/2771401.png";
         break;
       case 'shopping':
-        iconURL = "https://cdn-icons-png.flaticon.com/512/3081/3081648.png";
+        iconURL = "https://cdn-icons-png.flaticon.com/512/263/263142.png";
         break;
     }
 
-    var image = {
+    const image = { // Set image for marker icon
       url: iconURL,
       scaledSize : new google.maps.Size(40, 40),
     };
 
-    const newMarker = new google.maps.Marker({
+    const newMarker = new google.maps.Marker({ // Declare new instance of a google maps marker
       position: { lat: marker.latitude, lng: marker.longitude },
       map: map,
       animation: google.maps.Animation.DROP,
@@ -39,13 +35,13 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
       icon: image
     });
 
-    // Add info window to each marker
+    // Add listener to reveal info window when a marker is clicked
     google.maps.event.addListener(newMarker, "click", () => {
-      $('.gm-ui-hover-effect').trigger('click');
-      let infowindow = new google.maps.InfoWindow();
-      if (loggedIn) {
-        if (!usersFavourites.includes(marker.id)) {
-          if (owned) {
+      $('.gm-ui-hover-effect').trigger('click'); // Close all other info windows
+      let infowindow = new google.maps.InfoWindow(); // Declare new instance of a google maps info window
+      if (loggedIn) { // Change how an info window is displayed if user is logged in or not
+        if (!usersFavourites.includes(marker.id)) { // Change how the favourite button is displayed if the marker is favourited by the logged in user or not
+          if (owned) { // Change how the edit and delete buttons are displayed if the user owns the marker or not
             infowindow.setContent(`
               <div class="content">
                 <h1>${marker.title}</h1>
@@ -86,7 +82,7 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
                 </form>
               </div>
             `);
-          } else {
+          } else { // Change how the edit and delete buttons are displayed if the user owns the marker or not
             infowindow.setContent(`
               <div class="content">
                 <h1>${marker.title}</h1>
@@ -107,8 +103,8 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
               </div>
             `);
           }
-        } else {
-          if (owned) {
+        } else { // Change how the favourite button is displayed if the marker is favourited by the logged in user or not
+          if (owned) { // Change how the edit and delete buttons are displayed if the user owns the marker or not
             infowindow.setContent(`
               <div class="content">
                 <h1>${marker.title}</h1>
@@ -149,7 +145,7 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
                 </form>
               </div>
             `);
-          } else {
+          } else { // Change how the edit and delete buttons are displayed if the user owns the marker or not
             infowindow.setContent(`
               <div class="content">
                 <h1>${marker.title}</h1>
@@ -171,7 +167,7 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
             `);
           }
         }
-      } else {
+      } else { // Change how an info window is displayed if user is logged in or not
         infowindow.setContent(`
           <div class="content">
             <h1>${marker.title}</h1>
@@ -186,14 +182,14 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
       }
       infowindow.open(map, newMarker);
 
+      // Function to add listeners onto the info window a fifth of a second after it pops up (Could have a helper function and returned promise to allow for a .then() instead of a settimeout)
       setTimeout(() => {
-        $('.edit-button').on('click', () => {
+        $('.edit-button').on('click', () => { // Listener to show or hide the info window content and edit form
           $('.content').toggle();
           $('.edit-content:hidden').toggle();
         });
 
-
-        $('.edit-marker').on('submit', () => {
+        $('.edit-marker').on('submit', () => { // Listener to submit the edit form and run ajax http request to insert into database
           const $editInputs = $('.edit-marker :input');
           const marker = {};
           $editInputs.each(function() {
@@ -204,31 +200,27 @@ const loadMarkers = (markers, owned, reset, usersFavourites, loggedIn) => {
             .catch(err => {console.log(err)});
         });
 
+        // Listeners to show or hide the favourite buttons
         $('.favourite-container form :visible').on('submit', function() {
           $( this ).toggle();
         });
         $('.favourite-container form :hidden').on('submit', function() {
           $( this ).toggle();
         });
-      }, 300);
+      }, 200);
     });
 
    markerArr.push(newMarker);
   });
-
-  // Cluster markers using marker clusterer
-  new markerClusterer.MarkerClusterer({
-    map,
-    markerArr
-  });
 };
 
+// Function to get all marker object data based on category parameter
 const getMarkers = (category) => {
   $.get('/markers/public/category', {category: category})
     .then(publicMarkers => {
       $.get('/markers/user/category', {category: category})
         .then(userMarkers => {
-          for (marker of publicMarkers) {
+          for (marker of publicMarkers) { // Remove duplicate marker objects between the public and user markers
             if (userMarkers.includes(marker)) {
               publicMarkers.splice(publicMarkers.indexOf(marker), 1);
             }
@@ -236,31 +228,30 @@ const getMarkers = (category) => {
           $.get('/users/favourites')
             .then((userParams) => {
               let favArr;
-              if (userParams.loggedIn) {
+              if (userParams.loggedIn) { // Only send favourite markers array parameter if the user is logged in
                 favArr = userParams.favArr[0].favourites;
               } else {
                 favArr = [];
               }
 
-              if (category === 'favourites') {
+              if (category === 'favourites') { // Ensure that the public markers array of marker objects will have the unfavourite button if the user is sorting by favourite
                 loadMarkers(publicMarkers, true, true, favArr, userParams.loggedIn);
               } else {
                 loadMarkers(publicMarkers, false, true, favArr, userParams.loggedIn);
               }
               loadMarkers(userMarkers, true, false, favArr, userParams.loggedIn);
-            })
-            .catch(err => {console.log(err)});
-        })
-        .catch(err => {console.log(err)});
-
+            });
+        });
     })
     .catch(err => {console.log(err)});
 };
 
+// Listener to run get markers with the default sort category of 'all'
 $( window ).on('load', () => {
   getMarkers('all');
 });
 
+// Listener to run get markers with the chosen sort category each time the selector is changed
 $('.category-selector').change(function() {
   getMarkers($(this).val());
 });
