@@ -1,23 +1,8 @@
-// Client facing scripts here
+/* --- On document load listener --- */
 $(() => {
-  $('#fetch-users').on('click', () => {
-    $.ajax({
-      method: 'GET',
-      url: '/api/users'
-    })
-    .done((response) => {
-      const $usersList = $('#users');
-      $usersList.empty();
-
-      for(const user of response.users) {
-        $(`<li class="user">`).text(user.name).appendTo($usersList);
-      }
-    });
+  /* --- Listener to load profile page --- */
+  $('.load-profile').on('click', () => {
+    $.get('/users/profile')
+      .catch(err => console.log(err));
   });
-});
-
-$('.load-profile').on('click', () => {
-  $.get('/users/profile')
-    .then(() => console.log('success!'))
-    .catch(err => console.log(err));
 });
